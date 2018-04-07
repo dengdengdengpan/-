@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+*::before {
+    box-sizing: border-box;
+}
+*::after {
+    box-sizing: border-box;
+}
+body {
+    color: #333;
+    font-family: Helvetica, sans-serif;
+}
+ul,ol {
+    list-style: none;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+.icon {
+    width: 1em; 
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
+ .no-collaspse::before {
+     content: '';
+     display: table;
+ }
+ .no-collaspse::after {
+    content: '';
+    display: table;
+}
