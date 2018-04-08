@@ -1,0 +1,22 @@
+{
+  "name": "netease-cloud-music",
+  "version": "1.0.0",
+  "description": "- [预览地址](https://dengdengdengpan.github.io/NetEase-Cloud-Music/index.html)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dengdengdengpan/NetEase-Cloud-Music.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dengdengdengpan/NetEase-Cloud-Music/issues"
+  },
+  "homepage": "https://github.com/dengdengdengpan/NetEase-Cloud-Music#readme",
+  "dependencies": {
+    "leancloud-storage": "^3.6.4"
+  }
+}

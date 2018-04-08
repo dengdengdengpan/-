@@ -212,6 +212,9 @@
     transform: scale(0.5);
     transform-origin: left bottom;
 }
+.page-rec .nm-list .nm-link {
+    display: block;
+}
 .page-rec .nm-list .nm-title {
     margin-right: 42px;
     padding-top: 6px;
