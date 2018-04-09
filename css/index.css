@@ -254,7 +254,7 @@
 /*.page-rec .footer*/
 .page-rec .footer {
     padding-top: 53.333333%;/*背景图片高宽比400/750*/
-    background: transparent url(//i.loli.net/2018/04/07/5ac8372e67641.png) center no-repeat;
+    background: transparent url(https://i.loli.net/2018/04/07/5ac8372e67641.png) center no-repeat;
     background-size: cover;
     position: relative;
 }
@@ -288,3 +288,128 @@
     color: #888;
     transform: scale(0.75);
 }
+
+
+/*#content .tabs-content .page-hot*/
+/*.page-hot .hm-banner*/
+.page-hot .hm-banner {
+    padding-top: 38.9%;
+    background: transparent url(https://i.loli.net/2018/04/08/5aca269fd009f.jpg) no-repeat center;
+    background-size: cover;
+    position: relative;
+}
+.page-hot .hm-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.page-hot .hm-banner .banner-wrap {
+    padding-left: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+}
+.page-hot .banner-wrap .banner-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+.page-hot .banner-wrap .hm-signal {
+    width: 142px;
+    height: 67px;
+    background: transparent url(https://i.loli.net/2018/04/08/5aca31b57ab19.png) no-repeat center;
+    background-size: contain;
+}
+.page-hot .banner-wrap .hm-date {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #EBDAD6;
+    transform: scale(0.9);
+    transform-origin: left top;
+}
+
+/*.page-hot .hm-list*/
+.page-hot .hm-list > li {
+    margin-left: 9px;
+    position: relative;
+}
+.page-hot .hm-list > li::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 200%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transform: scale(0.5);
+    transform-origin: left bottom;
+}
+.page-hot .hm-list .hm-link {
+    padding-left: 10px;
+    display: flex;
+}
+.page-hot .hm-list .hm-rank {
+    width: 28px;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page-hot .hm-list > li:nth-child(-n + 3) .hm-rank {
+    color: #df3436;
+}
+.page-hot .hm-list .hm-song {
+    padding-top: 5px;
+    padding-left: 5px;
+    flex-grow: 1;
+    display: flex;
+}
+.page-hot .hm-list .hm-sintro {
+    width: 0;
+    margin-right: 42px;
+    flex-grow: 1;
+}
+.page-hot .hm-list .hm-title {
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.page-hot .hm-list .hm-title > span {
+    color: #888;
+    white-space: nowrap;
+}
+.page-hot .hm-list .hm-author {
+    padding: 3px 0 8px 0;
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.page-hot .hm-list .hm-author .icon-sq {
+    fill: #FE672E;
+}
+.page-hot .hm-list .hm-play {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+.page-hot .hm-list .hm-play svg.icon-play {
+    width: 22px;
+    height: 22px;
+    fill: #aaa;
+    vertical-align: middle;
+}
+
