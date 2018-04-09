@@ -52,16 +52,18 @@ queryNm.find().then(function(songs) {
         if (song.intro) {
             li.innerHTML = `
                 <a href="#" class="nm-link">
-                    <h3 class="nm-title">
-                        ${song.name}
-                        <span>${song.intro}</span>
-                    </h3>
-                    <p class="nm-author">
-                        <svg class="icon icon-sq" aria-hidden="true">
-                            <use xlink:href="#icon-sq"></use>
-                        </svg>
-                        ${song.singer} - ${song.album}
-                    </p>
+                    <div class="nm-intro">
+                        <h3 class="nm-title">
+                            ${song.name}
+                            <span>${song.intro}</span>
+                        </h3>
+                        <p class="nm-author">
+                            <svg class="icon icon-sq" aria-hidden="true">
+                                <use xlink:href="#icon-sq"></use>
+                            </svg>
+                            ${song.singer} - ${song.album}
+                        </p>
+                    </div>
                     <div class="nm-play">
                         <svg class="icon icon-play" aria-hidden="true">
                             <use xlink:href="#icon-play"></use>
@@ -72,15 +74,17 @@ queryNm.find().then(function(songs) {
         } else {
             li.innerHTML = `
                 <a href="#" class="nm-link">
-                    <h3 class="nm-title">
-                        ${song.name}
-                    </h3>
-                    <p class="nm-author">
-                        <svg class="icon icon-sq" aria-hidden="true">
-                            <use xlink:href="#icon-sq"></use>
-                        </svg>
-                        ${song.singer} - ${song.album}
-                    </p>
+                    <div class="nm-intro">
+                        <h3 class="nm-title">
+                            ${song.name}
+                        </h3>
+                        <p class="nm-author">
+                            <svg class="icon icon-sq" aria-hidden="true">
+                                <use xlink:href="#icon-sq"></use>
+                            </svg>
+                            ${song.singer} - ${song.album}
+                        </p>
+                    </div>
                     <div class="nm-play">
                         <svg class="icon icon-play" aria-hidden="true">
                             <use xlink:href="#icon-play"></use>

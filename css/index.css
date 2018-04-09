@@ -215,8 +215,10 @@
 .page-rec .nm-list .nm-link {
     display: block;
 }
-.page-rec .nm-list .nm-title {
+.page-rec .nm-list .nm-intro {
     margin-right: 42px;
+}
+.page-rec .nm-list .nm-title {
     padding-top: 6px;
     font-size: 17px;
     white-space: nowrap;
@@ -227,7 +229,6 @@
     color: #888;
 }
 .page-rec .nm-list .nm-author {
-    margin-right: 42px;
     padding: 3px 0 8px 0;
     font-size: 12px;
     color: #888;
@@ -372,11 +373,11 @@
     padding-top: 5px;
     padding-left: 5px;
     flex-grow: 1;
+    overflow: hidden;
     display: flex;
 }
 .page-hot .hm-list .hm-sintro {
-    width: 0;
-    margin-right: 42px;
+    overflow: hidden;
     flex-grow: 1;
 }
 .page-hot .hm-list .hm-title {
@@ -401,10 +402,10 @@
     fill: #FE672E;
 }
 .page-hot .hm-list .hm-play {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .page-hot .hm-list .hm-play svg.icon-play {
     width: 22px;
@@ -412,4 +413,13 @@
     fill: #aaa;
     vertical-align: middle;
 }
-
+.page-hot .hm-whole {
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+.page-hot .hm-whole span {
+    vertical-align: middle;
+}
