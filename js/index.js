@@ -43,14 +43,14 @@ AV.Object.saveAll(songs).then(function (s) {
 */
 
 /*向.page-rec .new-music .nm-list添加li元素节点*/
-let newList = document.querySelector('#content .page-rec .nm-list');
+let elNmList = document.querySelector('#content .page-rec .nm-list');
 let queryNm = new AV.Query('Song');
 queryNm.find().then(function(songs) {
-    for(let i = 0; i < songs.length; i++) {
+    for (let i = 0; i < songs.length; i++) {
         let song = songs[i].attributes;
-        let li = document.createElement('li');
+        let elLi = document.createElement('li');
         if (song.intro) {
-            li.innerHTML = `
+            elLi.innerHTML = `
                 <a href="#" class="nm-link">
                     <div class="nm-intro">
                         <h3 class="nm-title">
@@ -72,7 +72,7 @@ queryNm.find().then(function(songs) {
                 </a> 
             `; 
         } else {
-            li.innerHTML = `
+            elLi.innerHTML = `
                 <a href="#" class="nm-link">
                     <div class="nm-intro">
                         <h3 class="nm-title">
@@ -93,21 +93,21 @@ queryNm.find().then(function(songs) {
                 </a> 
             `; 
         }
-        newList.appendChild(li);
+        elNmList.appendChild(elLili);
     }
 }, function (error) {
     alert('获取新歌曲失败');
 });
 
 /*向.page-hot .hm-list添加li元素节点*/
-let hotMusicList = document.querySelector('#content .page-hot .hm-list');
+let elHmList = document.querySelector('#content .page-hot .hm-list');
 let queryHm = new AV.Query('Hot_song');
 queryHm.find().then(function(songs) {
     for(let i = 0; i < songs.length; i++) {
         let song = songs[i].attributes;
-        let li = document.createElement('li');
+        let elLi = document.createElement('li');
         if (song.intro) {
-            li.innerHTML = `
+            elLi.innerHTML = `
                 <a href="#" class="hm-link">
                     <div class="hm-rank">${song.rank}</div>
                     <div class="hm-song">
@@ -132,7 +132,7 @@ queryHm.find().then(function(songs) {
                 </a>
             `; 
         } else {
-            li.innerHTML = `
+            elLi.innerHTML = `
                 <a href="#" class="hm-link">
                     <div class="hm-rank">${song.rank}</div>
                     <div class="hm-song">
@@ -157,7 +157,7 @@ queryHm.find().then(function(songs) {
                 </a>
             `; 
         }
-        hotMusicList.appendChild(li);
+        elHmList.appendChild(elLi);
     }
 }, function (error) {
     alert('获取热歌榜失败');
