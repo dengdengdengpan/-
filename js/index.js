@@ -93,7 +93,7 @@ queryNm.find().then(function(songs) {
                 </a> 
             `; 
         }
-        elNmList.appendChild(elLili);
+        elNmList.appendChild(elLi);
     }
 }, function (error) {
     alert('获取新歌曲失败');
