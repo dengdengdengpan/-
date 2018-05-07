@@ -1,3 +1,4 @@
+/*将所有元素的盒子模型设置为border-box*/
 * {
     margin: 0;
     padding: 0;
@@ -9,20 +10,26 @@
 *::after {
     box-sizing: border-box;
 }
+
 body {
-    color: #333;
+    font-size: 16px;
     font-family: Helvetica, sans-serif;
+    color: #333;
 }
+
 ul,ol {
     list-style: none;
 }
+
 h1,h2,h3,h4,h5,h6 {
     font-weight: normal;
 }
+
 a {
     text-decoration: none;
     color: inherit;
 }
+
 .icon {
     width: 1em; 
     height: 1em;
@@ -30,6 +37,7 @@ a {
     fill: currentColor;
     overflow: hidden;
  }
+
  .no-collaspse::before {
      content: '';
      display: table;

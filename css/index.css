@@ -1,4 +1,4 @@
-/*index page common css*/
+/* index page common css */
 .page-rec h2 {
     margin-bottom: 14px;
     padding-left: 9px;
@@ -10,16 +10,14 @@
     content: '';
     position: absolute;
     left: 0;
-    top: 50%;
+    top: calc(50% - 8px);
     width: 2px;
     height: 16px;
-    margin-top: -9px;
-    background-color: #d33a31;;
+    background-color: #d33a31;
 }
 
 
-
-/*header#topbar*/
+/* header#topbar */
 #topbar {
     padding: 17px 10px;
     background-color: #D43C33;
@@ -61,11 +59,12 @@
 }
 
 
-/*#content*/
+/* #content */
 #content {
     position: relative;
 }
-/*#content .tabs*/
+
+/* #content .tabs */
 #content .tabs {
     background-color: #fff;
     font-size: 15px;
@@ -90,6 +89,12 @@
     justify-content: center;
     align-items: center;
 }
+#content .tabs-content > li {
+    display: none;
+}
+#content .tabs-content > li.active {
+    display: block;
+} 
 #content .tabs .text {
     padding: 10px 5px;
     line-height: 20px;
@@ -108,12 +113,6 @@
     height: 2px;
     background-color: #d33a31;
 }
-#content .tabs-content > li {
-    display: none;
-}
-#content .tabs-content > li.active {
-    display: block;
-} 
 #content .tabs-fix {
     position: fixed;
     top: 63.6px;
@@ -123,19 +122,20 @@
 }
 
 
-/*#content .tabs-content*/
+/* #content .tabs-content */
 #content .tabs-content {
     margin-top: 103.6px;
 }
 
-/*#content .tabs-content .page-rec*/
-/*.page-rec .rec-listwrap*/
+/* #content .tabs-content .page-rec */
+
+/* .page-rec .rec-listwrap */
 .page-rec .rec-listwrap{
     margin-top: 20px;
 }
 .page-rec .rec-list {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 .page-rec .rec-list > li {
@@ -148,29 +148,28 @@
     display: block;
     position: relative;
 }
-.page-rec .rec-list .rec-link::after {
+.page-rec .rec-list .rec-cover {
+    /* 利用width和padding-top来设置相同的百分比来实现相同的宽高比 */
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+.page-rec .rec-list .rec-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.page-rec .rec-list .rec-mask {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 20px;
-    background-image: linear-gradient(180deg,rgba(0,0,0,.2),transparent);
+    background-image: linear-gradient(to bottom,rgba(0,0,0,.2),transparent);
     z-index: 5;
-}
-.page-rec .rec-list .rec-cover {
-    width: 100%;
-    padding-top: 100%;/*padding-top用来设置宽高比*/
-    position: relative;
-}
-.page-rec .rec-list .rec-img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 .page-rec .rec-list .rec-num {
     position: absolute;
@@ -194,7 +193,7 @@
     overflow: hidden;
 }
 
-/*.page-rec .new-music*/
+/* .page-rec .new-music */
 .page-rec .new-music {
     margin-top: 40px;
 }
@@ -252,7 +251,7 @@
     vertical-align: middle;
 }
 
-/*.page-rec .footer*/
+/* .page-rec .footer */
 .page-rec .footer {
     padding-top: 53.333333%;/*背景图片高宽比400/750*/
     background: transparent url(https://i.loli.net/2018/04/07/5ac8372e67641.png) center no-repeat;
@@ -291,8 +290,8 @@
 }
 
 
-/*#content .tabs-content .page-hot*/
-/*.page-hot .hm-banner*/
+/* #content .tabs-content .page-hot */
+/* .page-hot .hm-banner */
 .page-hot .hm-banner {
     padding-top: 38.9%;
     background: transparent url(https://i.loli.net/2018/04/08/5aca269fd009f.jpg) no-repeat center;
@@ -340,7 +339,7 @@
     transform-origin: left top;
 }
 
-/*.page-hot .hm-list*/
+/* .page-hot .hm-list */
 .page-hot .hm-list > li {
     margin-left: 9px;
     position: relative;
