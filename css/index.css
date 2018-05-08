@@ -213,9 +213,10 @@
 }
 .page-rec .nm-list .nm-link {
     display: block;
+    position: relative;
 }
 .page-rec .nm-list .nm-intro {
-    margin-right: 42px;
+    margin-right: 45px;
 }
 .page-rec .nm-list .nm-title {
     padding-top: 6px;
@@ -240,6 +241,7 @@
 }
 .page-rec .nm-list .nm-play {
     position: absolute;
+    /* top: calc(50% - 11px); */
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
@@ -253,12 +255,14 @@
 
 /* .page-rec .footer */
 .page-rec .footer {
-    padding-top: 53.333333%;/*背景图片高宽比400/750*/
-    background: transparent url(https://i.loli.net/2018/04/07/5ac8372e67641.png) center no-repeat;
+    /* 背景图片高宽比400/750=0.5333333 */
+    padding-top: 53.333333%;
+    background: transparent url(../imgs/rec-background-img.png) center no-repeat;
     background-size: cover;
     position: relative;
 }
 .page-rec .footer-wrap {
+    padding-top: 4px;
     position: absolute;
     top: 0;
     right: 0;
@@ -291,10 +295,11 @@
 
 
 /* #content .tabs-content .page-hot */
+
 /* .page-hot .hm-banner */
 .page-hot .hm-banner {
-    padding-top: 38.9%;
-    background: transparent url(https://i.loli.net/2018/04/08/5aca269fd009f.jpg) no-repeat center;
+    padding-top: 38.933333%;
+    background: transparent url(../imgs/hm-banner.jpg) no-repeat center;
     background-size: cover;
     position: relative;
 }
@@ -307,7 +312,7 @@
     left: 0;
     background-color: rgba(0, 0, 0, 0.2);
 }
-.page-hot .hm-banner .banner-wrap {
+.page-hot .hm-banner .banner-left {
     padding-left: 20px;
     position: absolute;
     top: 0;
@@ -316,22 +321,19 @@
     left: 0;
     z-index: 5;
 }
-.page-hot .banner-wrap .banner-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.page-hot .banner-left .banner-center {
     position: relative;
-    top: 50%;
     left: 0;
+    top: 50%;
     transform: translateY(-50%);
 }
-.page-hot .banner-wrap .hm-signal {
+.page-hot .banner-left .hm-signal {
     width: 142px;
     height: 67px;
-    background: transparent url(https://i.loli.net/2018/04/08/5aca31b57ab19.png) no-repeat center;
+    background: transparent url(../imgs/hm-signal.png) no-repeat center;
     background-size: contain;
 }
-.page-hot .banner-wrap .hm-date {
+.page-hot .banner-left .hm-date {
     margin-top: 10px;
     font-size: 12px;
     color: #EBDAD6;
@@ -341,45 +343,48 @@
 
 /* .page-hot .hm-list */
 .page-hot .hm-list > li {
-    margin-left: 9px;
+    margin-left: 10px;
     position: relative;
 }
-.page-hot .hm-list > li::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 200%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transform: scale(0.5);
-    transform-origin: left bottom;
-}
 .page-hot .hm-list .hm-link {
-    padding-left: 10px;
     display: flex;
 }
 .page-hot .hm-list .hm-rank {
-    width: 28px;
+    padding-right: 9px;
     font-size: 17px;
+    color: #999;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 .page-hot .hm-list > li:nth-child(-n + 3) .hm-rank {
     color: #df3436;
 }
+.page-hot .hm-list > li:nth-child(11) .hm-rank {
+    font-size: 18px;/*为了让'11'这个字符和其它排名基本一样大*/
+}
 .page-hot .hm-list .hm-song {
-    padding-top: 5px;
-    padding-left: 5px;
     flex-grow: 1;
     overflow: hidden;
     display: flex;
+    position: relative;
+}
+.page-hot .hm-list .hm-song::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 200%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    transform: scale(0.5);
+    transform-origin: left bottom;
 }
 .page-hot .hm-list .hm-sintro {
+    padding: 5px 0;
     overflow: hidden;
     flex-grow: 1;
 }
 .page-hot .hm-list .hm-title {
+    line-height: 1.318;/* 不同的语言都能有相同的高度 */
     font-size: 17px;
     white-space: nowrap;
     overflow: hidden;
@@ -390,7 +395,8 @@
     white-space: nowrap;
 }
 .page-hot .hm-list .hm-author {
-    padding: 3px 0 8px 0;
+    padding: 3px 0;
+    line-height: 1.333334;/* 不同的语言都能有相同的高度 */
     font-size: 12px;
     color: #888;
     white-space: nowrap;
