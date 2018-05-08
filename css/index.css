@@ -257,7 +257,7 @@
 .page-rec .footer {
     /* 背景图片高宽比400/750=0.5333333 */
     padding-top: 53.333333%;
-    background: transparent url(../imgs/rec-background-img.png) center no-repeat;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/rec-background-img.png) center no-repeat;
     background-size: cover;
     position: relative;
 }
@@ -299,7 +299,7 @@
 /* .page-hot .hm-banner */
 .page-hot .hm-banner {
     padding-top: 38.933333%;
-    background: transparent url(../imgs/hm-banner.jpg) no-repeat center;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/hm-banner.jpg) no-repeat center;
     background-size: cover;
     position: relative;
 }
@@ -330,7 +330,7 @@
 .page-hot .banner-left .hm-signal {
     width: 142px;
     height: 67px;
-    background: transparent url(../imgs/hm-signal.png) no-repeat center;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/hm-signal.png) no-repeat center;
     background-size: contain;
 }
 .page-hot .banner-left .hm-date {

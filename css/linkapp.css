@@ -2,9 +2,8 @@
 .full-background {
     width: 100vw;
     height: 100vh;
-    background: transparent url(https://i.loli.net/2018/04/10/5accd7c08cfd7.png) no-repeat center;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/linkapp-bgimage.png) no-repeat center;
     background-size: cover;
-    background-color: pink;
     position: relative;
 }
 .full-background .declaration {
