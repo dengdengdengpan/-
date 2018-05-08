@@ -1,0 +1,207 @@
+/* .pl-banner */
+.pl-banner {
+    padding: 30px 10px 30px 15px;
+    overflow: hidden;
+    position: relative;
+}
+.pl-banner .banner-blur {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(http://p6v42xc4h.bkt.clouddn.com/rec-cover11.png) center no-repeat;
+    background-size: cover;
+    transform: scale(1.5);
+    filter: blur(20px);
+    z-index: 5;
+}
+.pl-banner .banner-blur::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+.pl-banner .banner-wrap {
+    display: flex;
+    position: relative;/* 为了使z-index有效 */
+    z-index: 10;
+}
+/* 不同的屏幕大小下不同的banner封面大小 */
+.pl-banner .banner-wrap  .banner-cover {
+    width: 114px;
+    height: 114px;
+    flex-shrink: 0;
+    position: relative;
+}
+@media screen and (min-width: 360px) {
+    .pl-banner .banner-wrap  .banner-cover {
+        width: 126px;
+        height: 126px;
+    }
+}
+@media screen and (min-width: 414px) {
+    .pl-banner .banner-wrap  .banner-cover {
+        width: 145px;
+        height: 145px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .pl-banner .banner-wrap  .banner-cover {
+        width: 200px;
+        height: 200px;
+    }
+}
+.pl-banner  .banner-cover > img {
+    width: 100%;
+}
+.pl-banner  .banner-cover .bancover-mask {
+    width: 100%;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right,transparent,rgba(0,0,0,0.2));
+}
+.pl-banner  .banner-cover .bancover-num {
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    top: 1px;
+    right: 0;
+}
+.pl-banner  .banner-cover .bancover-num .icon-earphone {
+    padding-right: 2px;
+    box-sizing: content-box;
+}
+.pl-banner  .banner-cover .bancover-sl {
+    height: 17px;
+    padding: 0 8px;
+    border-radius: 0 9px 9px 0;
+    background-color: #D85151;
+    line-height: 17px;
+    text-align: center;
+    font-size: 9px;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+.pl-banner .banner-wrap  .banner-intro {
+    margin-left: 16px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+.pl-banner .banner-intro > h2 {
+    padding: 10px 0;
+    line-height: 1.42;
+    font-size: 17px;
+    color: #fefefe;
+}
+.pl-banner .banner-intro .banintro-author {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #D0CDD4;
+    display: block;
+}
+.pl-banner .banintro-author .author-head {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+/* .pl-intro */
+.pl-intro {
+    padding: 10px 15px 18px 15px;
+    font-size: 14px;
+    color: #666;
+}
+.pl-intro .sl-tags .tag{
+    margin-right: 10px;
+    padding: 1px 8px;
+    line-height: 20px;
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+}
+.pl-intro .sl-tags .tag::after {
+    content: '';
+    width: 200%;
+    height: 200%;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 22px;
+    transform: scale(0.5);
+    transform-origin: left top;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.pl-intro .sl-intro {
+    padding-top: 10px;
+    -webkit-line-clamp: 3;
+}
+
+/* .pl-list */
+.pl-list > h3 {
+    height: 23px;
+    padding-left: 10px;
+    line-height: 23px;
+    font-size: 12px;
+    color: #666;
+    background-color: #eeeff0;
+}
+.pl-list .pl-link {
+    display: flex;
+}
+.pl-list .pl-link .pl-rank {
+    padding: 0 10px;
+    font-size: 17px;
+    color: #666;
+}
+.pl-list .pl-link .pl-song {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+.pl-list .pl-link .pl-song::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transform: scale(0.5);
+    transform-origin: left bottom;
+}
+.pl-list .pl-song .pl-sintro {
+    padding: 5px 0;
+    flex-grow: 1;
+    overflow: hidden;
+}
+.pl-list .pl-sintro .pl-title {
+    line-height: 1.318;
+    font-size: 17px;
+    color: #333;
+}
+.pl-list .pl-sintro .pl-author {
+    padding: 3px 0;
+    line-height: 1.333334;
+    font-size: 12px;
+    color: #888;
+}
+.pl-list .pl-song .pl-play {
+    padding: 0 10px;
+}
+.pl-list .pl-song .pl-play .icon-play {
+    width: 22px;
+    height: 22px;
+    fill: #aaa;
+}
