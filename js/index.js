@@ -46,7 +46,6 @@ AV.Object.saveAll(songs).then(function (s) {
 let elNmList = document.querySelector('#content .page-rec .nm-list');
 let queryNm = new AV.Query('PageRecNmList');
 queryNm.find().then(function(songs) {
-    console.log(songs)
     for (let i = 0; i < songs.length; i++) {
         let song = songs[i].attributes;
         let elLi = document.createElement('li');

@@ -411,6 +411,7 @@
     text-align: center;
     font-size: 14px;
     color: #999;
+    display: block;
 }
 .page-hot .hm-whole span {
     vertical-align: middle;

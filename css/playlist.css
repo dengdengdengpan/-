@@ -1,3 +1,16 @@
+/* playlist page common css */
+body {
+    background-color: #F8F8F8;
+}
+.pl-head4 {
+    height: 23px;
+    padding-left: 10px;
+    line-height: 23px;
+    font-size: 12px;
+    color: #666;
+    background-color: #eeeff0;
+}
+
 /* .pl-banner */
 .pl-banner {
     padding: 30px 10px 30px 15px;
@@ -106,6 +119,7 @@
     font-size: 14px;
     color: #D0CDD4;
     display: block;
+    position: relative;
 }
 .pl-banner .banintro-author .author-head {
     width: 30px;
@@ -113,6 +127,15 @@
     border-radius: 50%;
     display: inline-block;
     vertical-align: middle;
+}
+.pl-banner .banintro-author .big-v {
+    width: 12px;
+    height: 12px;
+    background: url(http://p6v42xc4h.bkt.clouddn.com/big-v.png) center no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 24px;
+    bottom: 0;
 }
 
 
@@ -148,14 +171,6 @@
 }
 
 /* .pl-list */
-.pl-list > h3 {
-    height: 23px;
-    padding-left: 10px;
-    line-height: 23px;
-    font-size: 12px;
-    color: #666;
-    background-color: #eeeff0;
-}
 .pl-list .pl-link {
     display: flex;
 }
@@ -204,4 +219,119 @@
     width: 22px;
     height: 22px;
     fill: #aaa;
+}
+
+
+/* .pl-comment */
+.pl-comment {
+    margin-bottom: 54px;
+}
+.pl-comment .cmt-list > li {
+    padding-top: 10px;
+    display: flex;
+}
+.pl-comment .cmt-list .cmt-head {
+    margin: 0 10px;
+    position: relative;
+}
+.pl-comment .cmt-head > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: block;
+}
+.pl-comment .cmt-head .middle-v {
+    width: 12px;
+    height: 12px;
+    background: url(http://p6v42xc4h.bkt.clouddn.com/middle-v.png) center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 22px;
+    right: 0;
+}
+.pl-comment .cmt-list .cmt-wrap {
+    padding-right: 10px;
+    padding-bottom: 11px;
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+}
+.pl-comment .cmt-list .cmt-wrap::after {
+    content: '';
+    width: 200%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    transform: scale(0.5);
+    transform-origin: left bottom;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.pl-comment .cmt-wrap .cmt-top {
+    padding-bottom: 10px;
+    display: flex;
+}
+.pl-comment .cmt-top .cmt-people {
+    flex-grow: 1;
+    overflow: hidden;
+}
+.pl-comment .cmt-people .nickname {
+    line-height: 20px;
+    font-size: 14px;
+    color: #666;
+}
+.pl-comment .cmt-people .cmt-time {
+    font-size: 9px;
+    color: #999;
+}
+.pl-comment .cmt-top .cmt-like {
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+.pl-comment .cmt-like .like-num {
+    padding-left: 5px;
+    line-height: 22px;
+    font-size: 11px;
+    color: #999;
+}
+.pl-comment .cmt-like .like-icon {
+    width: 14px;
+    height: 14px;
+}
+.pl-comment .cmt-wrap .cmt-content {
+    line-height: 22px;
+    font-size: 15px;
+    color: #333;
+}
+.pl-comment .all-comment {
+    padding: 18px 0;
+    line-height: 1;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    display: block;
+}
+.pl-comment .all-comment > span {
+    vertical-align: middle;
+}
+
+
+/* .pl-footer */
+.pl-footer {
+    width: 100%;
+    padding: 7px 30px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.pl-footer .pl-collect {
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #d33a31;
+    border-radius: 20px;
+    background-color: #d33a31;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    display: block;
 }
