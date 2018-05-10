@@ -8,34 +8,39 @@ AV.init({
 
 //批量查询
 let plSongs = document.querySelector('.pl-list .pl-songs');
-let queryPagePlList = new AV.Query('PagePlList');
-queryPagePlList.find().then(function(songs) {
+let querySongs = new AV.Query('SongList');
+querySongs.ascending('plRank');
+querySongs.find().then(function(songs) {
     let docFragment = document.createDocumentFragment();
     for (let i = 0; i < songs.length; i++) {
         let song = songs[i].attributes;
+        let songId = songs[i].id;
         let elLi = document.createElement('li');
-        elLi.innerHTML = `
-            <a href="#" class="pl-link">
-                <div class="pl-rank flex-vcenter">${song.rank}</div>
-                <div class="pl-song">
-                    <div class="pl-sintro">
-                        <h3 class="pl-title single-ellipsis">
-                                ${song.name}
-                        </h3>
-                        <p class="pl-author single-ellipsis">
-                            ${song.singer} - ${song.album}
-                        </p>
+        if (song.isPlayList) {
+            elLi.innerHTML = `
+                <a href="./song.html?id=${songId}" class="pl-link">
+                    <div class="pl-rank flex-vcenter">${song.plRank}</div>
+                    <div class="pl-song">
+                        <div class="pl-sintro">
+                            <h3 class="pl-title single-ellipsis">
+                                    ${song.name}
+                                    <span>${song.intro}</span>
+                            </h3>
+                            <p class="pl-author single-ellipsis">
+                                ${song.singer} - ${song.album}
+                            </p>
+                        </div>
+                        <div class="pl-play flex-vcenter">
+                            <svg class="icon icon-play" aria-hidden="true">
+                                <use xlink:href="#icon-play"></use>
+                            </svg>
+                        </div>
                     </div>
-                    <div class="pl-play flex-vcenter">
-                        <svg class="icon icon-play" aria-hidden="true">
-                            <use xlink:href="#icon-play"></use>
-                        </svg>
-                    </div>
-                </div>
-            </a>
-        `;
-        docFragment.appendChild(elLi);
-        plSongs.appendChild(docFragment);
+                </a>
+            `;
+            docFragment.appendChild(elLi);
+            plSongs.appendChild(docFragment);
+        }
     }
 },function(error) {
     alert('获取新歌曲失败');

@@ -24,123 +24,123 @@ AV.init({
     appKey: APP_KEY
 });
 
-/*向.page-rec .new-music .nm-list添加li元素节点*/
 let elNmList = document.querySelector('#content .page-rec .nm-list');
-let queryNm = new AV.Query('PageRecNmList');
-queryNm.find().then(function(songs) {
+let elHmList = document.querySelector('#content .page-hot .hm-list');
+
+//查询歌曲数据
+let querySongs = new AV.Query('SongList');
+//对于是hotMusic的song，利用ascending()实现hotRank升序排列
+querySongs.ascending('hotRank');
+//将查询到的结果按照不同的条件插入页面中
+querySongs.find().then(function(songs) {
+    let docFragment = document.createDocumentFragment();
     for (let i = 0; i < songs.length; i++) {
         let song = songs[i].attributes;
+        let songId = songs[i].id;
         let elLi = document.createElement('li');
-        if (song.intro) {
-            elLi.innerHTML = `
-                <a href="./song.html" class="nm-link">
-                    <div class="nm-intro">
-                        <h3 class="nm-title single-ellipsis">
-                            ${song.name}
-                            <span>${song.intro}</span>
-                        </h3>
-                        <p class="nm-author single-ellipsis">
-                            <svg class="icon icon-sq" aria-hidden="true">
-                                <use xlink:href="#icon-sq"></use>
-                            </svg>
-                            ${song.singer} - ${song.album}
-                        </p>
-                    </div>
-                    <div class="nm-play">
-                        <svg class="icon icon-play" aria-hidden="true">
-                            <use xlink:href="#icon-play"></use>
-                        </svg>
-                    </div>
-                </a> 
-            `; 
-        } else {
-            elLi.innerHTML = `
-                <a href="./song.html" class="nm-link">
-                    <div class="nm-intro">
-                        <h3 class="nm-title single-ellipsis">
-                            ${song.name}
-                        </h3>
-                        <p class="nm-author single-ellipsis">
-                            <svg class="icon icon-sq" aria-hidden="true">
-                                <use xlink:href="#icon-sq"></use>
-                            </svg>
-                            ${song.singer} - ${song.album}
-                        </p>
-                    </div>
-                    <div class="nm-play">
-                        <svg class="icon icon-play" aria-hidden="true">
-                            <use xlink:href="#icon-play"></use>
-                        </svg>
-                    </div>
-                </a> 
-            `; 
-        }
-        elNmList.appendChild(elLi);
-    }
-}, function (error) {
-    alert('获取新歌曲失败');
-});
-
-/*向.page-hot .hm-list添加li元素节点*/
-let elHmList = document.querySelector('#content .page-hot .hm-list');
-let queryHm = new AV.Query('PageHotList');
-queryHm.find().then(function(songs) {
-    for(let i = 0; i < songs.length; i++) {
-        let song = songs[i].attributes;
-        let elLi = document.createElement('li');
-        if (song.intro) {
-            elLi.innerHTML = `
-                <a href="#" class="hm-link">
-                    <div class="hm-rank">${song.rank}</div>
-                    <div class="hm-song">
-                        <div class="hm-sintro">
-                            <h3 class="hm-title single-ellipsis">
+        if (song.isNewMusic) {
+            if (song.intro) {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="nm-link">
+                        <div class="nm-intro">
+                            <h3 class="nm-title single-ellipsis">
                                 ${song.name}
                                 <span>${song.intro}</span>
                             </h3>
-                            <p class="hm-author single-ellipsis">
+                            <p class="nm-author single-ellipsis">
                                 <svg class="icon icon-sq" aria-hidden="true">
                                     <use xlink:href="#icon-sq"></use>
                                 </svg>
                                 ${song.singer} - ${song.album}
                             </p>
                         </div>
-                        <div class="hm-play">
+                        <div class="nm-play">
                             <svg class="icon icon-play" aria-hidden="true">
                                 <use xlink:href="#icon-play"></use>
                             </svg>
                         </div>
-                    </div>
-                </a>
-            `; 
-        } else {
-            elLi.innerHTML = `
-                <a href="#" class="hm-link">
-                    <div class="hm-rank">${song.rank}</div>
-                    <div class="hm-song">
-                        <div class="hm-sintro">
-                            <h3 class="hm-title single-ellipsis">
+                    </a> 
+                `;
+            } else {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="nm-link">
+                        <div class="nm-intro">
+                            <h3 class="nm-title single-ellipsis">
                                 ${song.name}
-                                <span>${song.intro}</span>
                             </h3>
-                            <p class="hm-author single-ellipsis">
+                            <p class="nm-author single-ellipsis">
                                 <svg class="icon icon-sq" aria-hidden="true">
                                     <use xlink:href="#icon-sq"></use>
                                 </svg>
                                 ${song.singer} - ${song.album}
                             </p>
                         </div>
-                        <div class="hm-play">
+                        <div class="nm-play">
                             <svg class="icon icon-play" aria-hidden="true">
                                 <use xlink:href="#icon-play"></use>
                             </svg>
                         </div>
-                    </div>
-                </a>
-            `; 
+                    </a> 
+                `;
+            }
+            docFragment.appendChild(elLi);
+            elNmList.appendChild(docFragment);
         }
-        elHmList.appendChild(elLi);
+        if (song.isHotMusic) {
+            if (song.intro) {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="hm-link">
+                        <div class="hm-rank">${song.hotRank}</div>
+                        <div class="hm-song">
+                            <div class="hm-sintro">
+                                <h3 class="hm-title single-ellipsis">
+                                    ${song.name}
+                                    <span>${song.intro}</span>
+                                </h3>
+                                <p class="hm-author single-ellipsis">
+                                    <svg class="icon icon-sq" aria-hidden="true">
+                                        <use xlink:href="#icon-sq"></use>
+                                    </svg>
+                                    ${song.singer} - ${song.album}
+                                </p>
+                            </div>
+                            <div class="hm-play">
+                                <svg class="icon icon-play" aria-hidden="true">
+                                    <use xlink:href="#icon-play"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            } else {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="hm-link">
+                        <div class="hm-rank">${song.hotRank}</div>
+                        <div class="hm-song">
+                            <div class="hm-sintro">
+                                <h3 class="hm-title single-ellipsis">
+                                    ${song.name}
+                                </h3>
+                                <p class="hm-author single-ellipsis">
+                                    <svg class="icon icon-sq" aria-hidden="true">
+                                        <use xlink:href="#icon-sq"></use>
+                                    </svg>
+                                    ${song.singer} - ${song.album}
+                                </p>
+                            </div>
+                            <div class="hm-play">
+                                <svg class="icon icon-play" aria-hidden="true">
+                                    <use xlink:href="#icon-play"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }
+            docFragment.appendChild(elLi);
+            elHmList.appendChild(docFragment);
+        }
     }
-}, function (error) {
-    alert('获取热歌榜失败');
+},function(error) {
+    alert('获取歌曲失败');
 });
