@@ -15,7 +15,7 @@ tabsLis.forEach(function(tabsli) {
     });
 });
 
-//初始化
+//leanclound 初始化
 var APP_ID = 'Mugo8DRz0JB2wQoHCfKzI40v-gzGzoHsz';
 var APP_KEY = 'vhMJxTzyQviG3EWuuW3QfPbN';
 
@@ -23,24 +23,6 @@ AV.init({
     appId: APP_ID,
     appKey: APP_KEY
 });
-
-/* 
-    ***向leancloud上传并保存数据***
-let SongObject = AV.Object.extend('Song');
-let song = new SongObject;
-
-song.set('name','My Star');
-song.set('singer','EXILE');
-song.set('album','My Star');
-song.set('url','http://p6v42xc4h.bkt.clouddn.com/My%20Star.mp3');
-
-let songs = [song];
-AV.Object.saveAll(songs).then(function (s) {
-    console.log('ok');
-}, function (error) {
-    console.log('error');
-});
-*/
 
 /*向.page-rec .new-music .nm-list添加li元素节点*/
 let elNmList = document.querySelector('#content .page-rec .nm-list');
@@ -51,7 +33,7 @@ queryNm.find().then(function(songs) {
         let elLi = document.createElement('li');
         if (song.intro) {
             elLi.innerHTML = `
-                <a href="#" class="nm-link">
+                <a href="./song.html" class="nm-link">
                     <div class="nm-intro">
                         <h3 class="nm-title single-ellipsis">
                             ${song.name}
@@ -73,7 +55,7 @@ queryNm.find().then(function(songs) {
             `; 
         } else {
             elLi.innerHTML = `
-                <a href="#" class="nm-link">
+                <a href="./song.html" class="nm-link">
                     <div class="nm-intro">
                         <h3 class="nm-title single-ellipsis">
                             ${song.name}

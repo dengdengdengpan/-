@@ -1,0 +1,170 @@
+/* .page-playsong */
+.page-playsong {
+    height: 100vh;
+    position: relative;
+}
+.page-playsong::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/ydqc-cover.jpg) center no-repeat;
+    background-size: cover;
+    transform: scale(1.5);
+    transform-origin: center top;
+    filter: blur(50px) brightness(0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -5;
+}
+
+/* .page-playsong .logo */
+.logo {
+    width: 100px;
+    height: 17px;
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    z-index: 50;
+}
+.logo > img {
+    width: 100%;
+}
+
+
+/* .page-playsong .song-wrap */
+.song-wrap {
+    padding-top: 63px;
+    position: relative;
+    background-color: green;
+}
+.song-wrap .pointer {
+    width: 84px;
+    height: 122px;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/pointer-s.png) center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 13px);
+    z-index: 5;
+}
+.song-wrap .disc {
+    width: 248px;
+    height: 248px;
+    margin: 0 auto;
+    background-color: plum;
+}
+.song-wrap .disc .circle {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.song-wrap .disc .circle::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/disc-s.png) center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.song-wrap .disc .circle::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/disc-halo-s.png) center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.song-wrap .disc .cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/disc-default.png) center no-repeat;
+    background-size: contain;
+}
+.song-wrap .disc .cover.playing,
+.song-wrap .disc .circle.playing::after {
+    animation: spin 20s infinite linear;
+}
+.song-wrap .disc .cover > img {
+    width: 100%;
+    border-radius: 50%;
+    vertical-align: top;
+}
+.song-wrap .play-btn {
+    width: 50px;
+    height: 50px;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/play-btn.png) center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: calc(50% + 32px);/* 32px是.song-wrap的padding-top一半 */
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 5;
+}
+
+/* 查询屏幕大小 */
+@media screen and (min-width: 360px) {
+    .song-wrap {
+        padding-top: 70px;
+    }
+    .song-wrap .pointer {
+        width: 96px;
+        height: 137px;
+        background-image: url(http://p6v42xc4h.bkt.clouddn.com/pointer-m.png);
+    }
+    .song-wrap .disc {
+        width: 296px;
+        height: 296px;
+    }
+    .song-wrap .disc .circle::before {
+        background-image: url(http://p6v42xc4h.bkt.clouddn.com/disc-m.png);
+    }
+    .song-wrap .disc .cover {
+        width: 184px;
+        height: 184px;
+    }
+    .song-wrap .play-btn {
+        width: 56px;
+        height: 56px;
+    }
+}
+@media screen and (min-width: 414px) {
+    .song-wrap{
+        padding-top: 80px;
+    }
+    .song-wrap .pointer {
+        width: 110px;
+        height: 157px;
+        background-image: url(http://p6v42xc4h.bkt.clouddn.com/pointer-l.png);
+    }
+    .song-wrap .disc {
+        width: 342px;
+        height: 342px;
+    }
+    .song-wrap .disc .circle::before {
+        background-image: url(http://p6v42xc4h.bkt.clouddn.com/disc-l.png);
+    }
+    .song-wrap .disc .cover {
+        width: 212px;
+        height: 212px;
+    }
+    .song-wrap .play-btn {
+        width: 65px;
+        height: 65px;
+    }
+}
+
+/* 旋转动画 */
+@keyframes spin {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform:rotateZ(360deg);
+    }
+}
