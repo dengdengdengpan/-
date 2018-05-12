@@ -3,19 +3,36 @@
     height: 100vh;
     position: relative;
 }
-.page-playsong::before{
-    content: '';
+
+/* .page-playsong .click-wrap */
+.click-wrap {
+    height: 90%;
+    position: relative;
+    z-index: 10;
+}
+
+/* .page-playsong .whole-bkground */
+.whole-bkground {
     width: 100%;
     height: 100%;
-    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/ydqc-cover.jpg) center no-repeat;
+    background: transparent center no-repeat;
     background-size: cover;
     transform: scale(1.5);
     transform-origin: center top;
-    filter: blur(50px) brightness(0.5);
+    filter: blur(50px);
     position: absolute;
     top: 0;
     left: 0;
     z-index: -5;
+}
+.whole-bkground::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* .page-playsong .logo */
@@ -25,7 +42,7 @@
     position: absolute;
     top: 12px;
     left: 10px;
-    z-index: 50;
+    z-index: 5;
 }
 .logo > img {
     width: 100%;
@@ -36,7 +53,6 @@
 .song-wrap {
     padding-top: 63px;
     position: relative;
-    background-color: green;
 }
 .song-wrap .pointer {
     width: 84px;
@@ -52,7 +68,6 @@
     width: 248px;
     height: 248px;
     margin: 0 auto;
-    background-color: plum;
 }
 .song-wrap .disc .circle {
     width: 100%;
@@ -69,8 +84,14 @@
     top: 0;
     left: 0;
 }
-.song-wrap .disc .circle::after {
-    content: '';
+.song-wrap .disc .cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/disc-default.png) center no-repeat;
+    background-size: contain;
+}
+.song-wrap .disc .disc-halo {
     width: 100%;
     height: 100%;
     background: transparent url(http://p6v42xc4h.bkt.clouddn.com/disc-halo-s.png) center no-repeat;
@@ -79,16 +100,10 @@
     top: 0;
     left: 0;
 }
-.song-wrap .disc .cover {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: transparent url(http://p6v42xc4h.bkt.clouddn.com/disc-default.png) center no-repeat;
-    background-size: contain;
-}
-.song-wrap .disc .cover.playing,
-.song-wrap .disc .circle.playing::after {
+.song-wrap .disc .cover,
+.song-wrap .disc .disc-halo  {
     animation: spin 20s infinite linear;
+    animation-play-state: paused;
 }
 .song-wrap .disc .cover > img {
     width: 100%;
@@ -105,6 +120,12 @@
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 5;
+}
+.song-wrap .play-btn.show {
+    display: block;
+}
+.song-wrap .play-btn.hide {
+    display: none;
 }
 
 /* 查询屏幕大小 */
@@ -159,12 +180,66 @@
     }
 }
 
-/* 旋转动画 */
+/* 唱片旋转动画 */
 @keyframes spin {
     from {
         transform: rotateZ(0deg);
     }
     to {
         transform:rotateZ(360deg);
+    }
+}
+
+
+/* .page-playsong .song-intro */
+.song-intro {
+    margin-top: 25px;
+    padding: 0 35px;
+}
+.song-intro > h2 {
+    line-height: 1.2;
+    text-align: center;
+    font-size: 15px;
+    color: #fefefe;
+}
+.song-intro .singer {
+    font-size: 13px;
+    color: #AEABAC;
+}
+.song-intro .lyric-wrap {
+    margin-top: 14px;
+}
+.song-intro .lyric-wrap .lyric-show {
+    height: 72px;
+    overflow: hidden;
+    border: 1px solid red;
+}
+.song-intro .lyric-wrap .lyric-lines {
+
+}
+.song-intro .lyric-wrap p {
+    line-height: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: #AEABAC;
+}
+.song-intro .lyric-wrap p.playing {
+    color: white;
+}
+
+/* 查询屏幕大小 */
+@media screen and (min-width: 375px) {
+    .song-intro > h2 {
+        font-size: 18px;
+    }
+    .song-intro .singer {
+        font-size: 16px;
+    }
+    .song-intro .lyric-wrap .lyric-show {
+        height: 90px;
+    }
+    .song-intro .lyric-wrap p {
+        line-height: 30px;
+        font-size: 16px;
     }
 }

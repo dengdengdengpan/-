@@ -285,7 +285,6 @@ body {
 }
 .pl-comment .cmt-top .cmt-like {
     flex-shrink: 0;
-    opacity: 0.5;
 }
 .pl-comment .cmt-like .like-num {
     padding-left: 5px;
