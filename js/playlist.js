@@ -31,8 +31,8 @@ querySongs.find().then(function(songs) {
                 </a>
             `;
             docFragment.appendChild(elLi);
-            plSongs.appendChild(docFragment);
         }
+        plSongs.appendChild(docFragment);
     }
 },function(error) {
     alert('获取新歌曲失败');

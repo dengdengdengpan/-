@@ -24,6 +24,13 @@ let querySongs = new AV.Query('SongList');
 querySongs.ascending('hotRank');
 //将查询到的结果按照不同的条件插入页面中
 querySongs.find().then(function(songs) {
+    appendNewMusic(songs);
+    appendHotMusic(songs); 
+},function(error) {
+    alert('获取歌曲失败');
+});
+
+function appendNewMusic(songs) {
     let docFragment = document.createDocumentFragment();
     for (let i = 0; i < songs.length; i++) {
         let song = songs[i].attributes;
@@ -52,6 +59,7 @@ querySongs.find().then(function(songs) {
                         </div>
                     </a> 
                 `;
+                docFragment.appendChild(elLi);
             } else {
                 elLi.innerHTML = `
                     <a href="./song.html?id=${songId}" class="nm-link">
@@ -73,10 +81,19 @@ querySongs.find().then(function(songs) {
                         </div>
                     </a> 
                 `;
+                docFragment.appendChild(elLi);
             }
-            docFragment.appendChild(elLi);
             elNmList.appendChild(docFragment);
         }
+    }    
+}
+
+function appendHotMusic(songs) {
+    let docFragment = document.createDocumentFragment();
+    for (let i = 0; i < songs.length; i++) {
+        let song = songs[i].attributes;
+        let songId = songs[i].id;
+        let elLi = document.createElement('li');
         if (song.isHotMusic) {
             if (song.intro) {
                 elLi.innerHTML = `
@@ -103,6 +120,7 @@ querySongs.find().then(function(songs) {
                         </div>
                     </a>
                 `;
+                docFragment.appendChild(elLi);
             } else {
                 elLi.innerHTML = `
                     <a href="./song.html?id=${songId}" class="hm-link">
@@ -127,11 +145,9 @@ querySongs.find().then(function(songs) {
                         </div>
                     </a>
                 `;
+                docFragment.appendChild(elLi);
             }
-            docFragment.appendChild(elLi);
-            elHmList.appendChild(docFragment);
         }
-    }
-},function(error) {
-    alert('获取歌曲失败');
-});
+        elHmList.appendChild(docFragment);
+    }    
+}

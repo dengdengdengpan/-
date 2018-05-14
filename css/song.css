@@ -105,6 +105,12 @@
     animation: spin 20s infinite linear;
     animation-play-state: paused;
 }
+.song-wrap .disc .cover.playing,
+.song-wrap .disc .disc-halo.playing  {
+    /* animation-play-state--->定义一个动画是否运行或者暂停*/
+    /* 可以恢复一个已暂停的动画，将从它暂停的时候开始，而不是从动画序列的开始在动画 */
+    animation-play-state: running;
+}
 .song-wrap .disc .cover > img {
     width: 100%;
     border-radius: 50%;
@@ -120,9 +126,6 @@
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 5;
-}
-.song-wrap .play-btn.show {
-    display: block;
 }
 .song-wrap .play-btn.hide {
     display: none;
@@ -191,54 +194,54 @@
 }
 
 
-/* .page-playsong .song-intro */
-.song-intro {
+/* .page-playsong .song-infor */
+.song-infor {
     margin-top: 25px;
     padding: 0 35px;
 }
-.song-intro > h2 {
+.song-infor > h2 {
     line-height: 1.2;
     text-align: center;
     font-size: 15px;
     color: #fefefe;
 }
-.song-intro .singer {
+.song-infor .singer {
     font-size: 13px;
     color: #AEABAC;
 }
-.song-intro .lyric-wrap {
+.song-infor .lyric-wrap {
     margin-top: 14px;
 }
-.song-intro .lyric-wrap .lyric-show {
+.song-infor .lyric-wrap .lyric-show {
     height: 72px;
     overflow: hidden;
-    border: 1px solid red;
 }
-.song-intro .lyric-wrap .lyric-lines {
-
+.song-infor .lyric-wrap .lyric-lines {
+    transition: transform 0.3s;
+    position: relative;
 }
-.song-intro .lyric-wrap p {
+.song-infor .lyric-wrap p {
     line-height: 24px;
     text-align: center;
     font-size: 13px;
     color: #AEABAC;
 }
-.song-intro .lyric-wrap p.playing {
+.song-infor .lyric-wrap p.playing {
     color: white;
 }
 
 /* 查询屏幕大小 */
 @media screen and (min-width: 375px) {
-    .song-intro > h2 {
+    .song-infor > h2 {
         font-size: 18px;
     }
-    .song-intro .singer {
+    .song-infor .singer {
         font-size: 16px;
     }
-    .song-intro .lyric-wrap .lyric-show {
+    .song-infor .lyric-wrap .lyric-show {
         height: 90px;
     }
-    .song-intro .lyric-wrap p {
+    .song-infor .lyric-wrap p {
         line-height: 30px;
         font-size: 16px;
     }
