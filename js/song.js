@@ -1,6 +1,3 @@
-
-
-
 function getId() {
     let search = document.location.search;
     let regex = /\bid=([^&*]+)/;
@@ -8,25 +5,31 @@ function getId() {
     return id; 
 }
 
-
-
 let songId = getId();
 
 let docFragment = document.createDocumentFragment();
 
-
-
 // 查询歌曲
 let querySong = new AV.Query('SongList');
-querySong.get(songId).then(function(song) {
-    let coverUrl = song.attributes.cover;
-    let songUrl = song.attributes.url;
+querySong.get(songId).then(function(songObj) {
+    let song = songObj.attributes;
+    let coverUrl = song.cover;
+    let songUrl = song.url;
 
+    initTitle(song);
     initCover(coverUrl);
     initSongInfor(song);
     initPlayer(songUrl);
     
 });
+
+function initTitle(song) {
+    if (song.intro) {
+        document.title = `${song.name} - ${song.intro} - ${song.singer} - 单曲 - 网易云音乐`;
+    } else {
+        document.title = `${song.name} - ${song.singer} - 单曲 - 网易云音乐`;
+    }
+}
 
 function initCover(coverUrl) {
     let wholeBkground = document.querySelector('.whole-bkground');
@@ -37,8 +40,7 @@ function initCover(coverUrl) {
 
 
 function initPlayer(songUrl) {
-    let discHalo = document.querySelector('.disc .disc-halo');
-    let songCover = document.querySelector('.disc .cover');
+    let disc = document.querySelector('.song-wrap .disc');
     let playBtn = document.querySelector('.play-btn');
     let clickWrap = document.querySelector('.click-wrap');
     let elAudio = document.createElement('audio');
@@ -48,94 +50,75 @@ function initPlayer(songUrl) {
     let whichLine;
     
     elAudio.src = songUrl;
+
     // canplay--->在媒体数据已经有足够的数据（至少播放数帧）可供播放时触发
-    elAudio.addEventListener('canplay',function() {
+    // elAudio.addEventListener('canplay',function() {
         console.log('可以播放了');
         clickWrap.addEventListener('click',function() {
-            console.log('这是可点击区域');
-            // HTMLMediaElement.paused--->告诉音频是否暂停，true表示暂停中，false表示没有暂停
-            if (elAudio.paused) {
-                elAudio.play();
-                playBtn.classList.add('hide');
-                discHalo.classList.add('playing');
-                songCover.classList.add('playing');
-            } else {
+            // HTMLMediaElement.paused--->只读，告诉音频是否暂停，默认是true表示暂停中，false表示没有暂停
+            if (!elAudio.paused) {
                 elAudio.pause();
                 playBtn.classList.remove('hide');
-                discHalo.classList.remove('playing');
-                songCover.classList.remove('playing');
+                disc.classList.remove('playing');
+            } else {
+                elAudio.play();
+                playBtn.classList.add('hide');
+                disc.classList.add('playing');
             }
-
-            setInterval(function() {
-                let time = elAudio.currentTime;
-                
-                for (let i = 0 ; i < lyricLine.length; i++) {
-                    let currentLineTime = lyricLine[i].dataset.time;
-                    let nextLineTime = lyricLine[i + 1].dataset.time;
-                    if (lyricLine[i + 1] !== undefined && currentLineTime <= time && nextLineTime > time) {
-                        whichLine = lyricLine[i];
-                        break;
-                    }
-                }
-                if (whichLine) {
-                    whichLine.classList.add('playing');
-                    whichLine.previousElementSibling.classList.remove('playing');
-                    let top = whichLine.offsetTop - lyricShow.clientHeight / 3;
-                    lyricLines.style.transform = `translateY(-${top}px)`;
-                }
-            },500);
         });
-    });
-
-    
-    
-
-
+    // });
 
     // ended--->播放结束时触发
-    // elAudio.addEventListener('ended',function() {
-    //     console.log('播放结束了');
-    //     playBtn.classList.remove('hide');
-    //     discHalo.classList.remove('playing');
-    //     songCover.classList.remove('playing');
-    //     console.log(elAudio.paused);
-    //     elAudio.paused = true;
-    //     clickWrap.addEventListener('click',function() {
-    //         console.log('这是可点击区域');
-    //         // HTMLMediaElement.paused--->告诉音频是否暂停，true表示暂停中，false表示没有暂停
-    //         if (elAudio.paused) {
-    //             elAudio.play();
-    //             playBtn.classList.add('hide');
-    //             discHalo.classList.add('playing');
-    //             songCover.classList.add('playing');
-    //         } else {
-    //             elAudio.pause();
-    //             playBtn.classList.remove('hide');
-    //             discHalo.classList.remove('playing');
-    //             songCover.classList.remove('playing');
-    //         }
-    //     });
-    // });   
+    elAudio.addEventListener('ended',function() {
+        console.log('播放结束了');
+        playBtn.classList.remove('hide');
+        disc.classList.remove('playing');
+    });
+
+    setInterval(function() {
+        let time = elAudio.currentTime;
+        
+        for (let i = 0 ; i < lyricLine.length; i++) {
+            // 如果当前行的下一行是undefined，则其是最后一行，将当前行赋值给whichLine后退出循环
+            if (lyricLine[i + 1] === undefined) {
+                whichLine = lyricLine[i];
+                break;
+            }
+            let currentLineTime = lyricLine[i].dataset.time;
+            let nextLineTime = lyricLine[i + 1].dataset.time;
+            // 当前行的时间 <= 歌曲播放的当前时间 < 当前行的下一行时间，则应该出现的歌词是当前行
+            if (currentLineTime <= time && nextLineTime > time) {
+                whichLine = lyricLine[i];
+                break;
+            }
+        }
+        if (whichLine) {
+            // 如果当前行没有前一行的情况
+            if (whichLine.previousElementSibling !== null) {
+                whichLine.classList.add('playing');
+                whichLine.previousElementSibling.classList.remove('playing');
+            } else {
+                whichLine.classList.add('playing');
+            }
+            let top = whichLine.offsetTop - lyricShow.clientHeight / 3;
+            lyricLines.style.transform = `translateY(-${top}px)`;
+        }
+    },500);
 }
 
-// function pad(num) {
-//     return num > 10 ? num + '' : '0' + num;
-// }
-
 function initSongInfor(song) {
-    let songInfor = document.querySelector('.song-infor');
-    let songName = document.querySelector('.song-infor .name');
-    let songIntro = document.querySelector('.song-infor .intro');
-    let songSinger = document.querySelector('.song-infor .singer');
-    songName.textContent = song.attributes.name;
-    songIntro.textContent = song.attributes.intro;
-    songSinger.textContent = song.attributes.singer;
+    let songTitle = document.querySelector('.song-infor .song-title');
+    if (song.intro) {
+        songTitle.textContent = `${song.name}${song.intro} - ${song.singer}`;
+    } else {
+        songTitle.textContent = `${song.name} - ${song.singer}`;
+    }
     parseLyric(song);
 }
 
 function parseLyric(song) {
     let lyricLines = document.querySelector('.song-infor .lyric-lines');
-    let parts = song.attributes.lyric.split('\n');
+    let parts = song.lyric.split('\n');
     let arrLyric = [];
     
     let lyricRegex = /^\[(.+)\](.*)/;
