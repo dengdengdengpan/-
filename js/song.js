@@ -65,17 +65,14 @@ function initPlayer(songUrl) {
                 discHalo.classList.remove('playing');
                 songCover.classList.remove('playing');
             }
+
             setInterval(function() {
                 let time = elAudio.currentTime;
-                let minutes = parseInt(time / 60);
-                let seconds = time - minutes * 60;
-                let formatTime = `${pad(minutes)}:${pad(seconds)}`;
                 
                 for (let i = 0 ; i < lyricLine.length; i++) {
                     let currentLineTime = lyricLine[i].dataset.time;
                     let nextLineTime = lyricLine[i + 1].dataset.time;
-                    if (lyricLine[i + 1] !== undefined && currentLineTime <= formatTime && nextLineTime > formatTime) {
-                        console.log(lyricLine[i]);
+                    if (lyricLine[i + 1] !== undefined && currentLineTime <= time && nextLineTime > time) {
                         whichLine = lyricLine[i];
                         break;
                     }
@@ -121,9 +118,9 @@ function initPlayer(songUrl) {
     // });   
 }
 
-function pad(num) {
-    return num > 10 ? num + '' : '0' + num;
-}
+// function pad(num) {
+//     return num > 10 ? num + '' : '0' + num;
+// }
 
 function initSongInfor(song) {
     let songInfor = document.querySelector('.song-infor');
@@ -138,20 +135,23 @@ function initSongInfor(song) {
 
 function parseLyric(song) {
     let lyricLines = document.querySelector('.song-infor .lyric-lines');
-    let arrLyric = song.attributes.lyric.split('\n');
+    let parts = song.attributes.lyric.split('\n');
+    let arrLyric = [];
     
     let lyricRegex = /^\[(.+)\](.*)/;
-
-    arrLyric = arrLyric.map(function(str) {
+    let timeRegex = /(\d+):([\d.]+)/;
+    parts.forEach(function(str) {
         let result = str.match(lyricRegex);
+        let lyricTime = result[1].match(timeRegex);
+        let minute = +lyricTime[1];
+        let seconds = +lyricTime[2];
         if (result) {
-            return {
-                time: result[1],
+            arrLyric.push({
+                time: minute * 60 + seconds,
                 lyric: result[2]
-            }
+            });
         }
     });
-
     for (let i = 0; i < arrLyric.length; i++) {
         // 如果arrLyric有undefined 则退出循环
         if (!arrLyric[i]) {

@@ -20,7 +20,7 @@
     transform: scale(1.5);
     transform-origin: center top;
     filter: blur(50px);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: -5;
@@ -218,7 +218,7 @@
 }
 .song-infor .lyric-wrap .lyric-lines {
     transition: transform 0.3s;
-    position: relative;
+    position: relative; /* 作为标记方便js使用element.offsetTop */
 }
 .song-infor .lyric-wrap p {
     line-height: 24px;

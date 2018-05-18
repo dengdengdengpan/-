@@ -9,28 +9,53 @@ querySongs.find().then(function(songs) {
         let songId = songs[i].id;
         let elLi = document.createElement('li');
         if (song.isPlayList) {
-            elLi.innerHTML = `
-                <a href="./song.html?id=${songId}" class="pl-link">
-                    <div class="pl-rank flex-vcenter">${song.plRank}</div>
-                    <div class="pl-song">
-                        <div class="pl-sintro">
-                            <h3 class="pl-title single-ellipsis">
-                                    ${song.name}
-                                    <span>${song.intro}</span>
-                            </h3>
-                            <p class="pl-author single-ellipsis">
-                                ${song.singer} - ${song.album}
-                            </p>
+            if (song.intro) {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="pl-link">
+                        <div class="pl-rank flex-vcenter">${song.plRank}</div>
+                        <div class="pl-song">
+                            <div class="pl-sintro">
+                                <h3 class="pl-title single-ellipsis">
+                                        ${song.name}
+                                        <span>${song.intro}</span>
+                                </h3>
+                                <p class="pl-author single-ellipsis">
+                                    ${song.singer} - ${song.album}
+                                </p>
+                            </div>
+                            <div class="pl-play flex-vcenter">
+                                <svg class="icon icon-play" aria-hidden="true">
+                                    <use xlink:href="#icon-play"></use>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="pl-play flex-vcenter">
-                            <svg class="icon icon-play" aria-hidden="true">
-                                <use xlink:href="#icon-play"></use>
-                            </svg>
+                    </a>
+                `;
+                docFragment.appendChild(elLi);
+            } else {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="pl-link">
+                        <div class="pl-rank flex-vcenter">${song.plRank}</div>
+                        <div class="pl-song">
+                            <div class="pl-sintro">
+                                <h3 class="pl-title single-ellipsis">
+                                        ${song.name}
+                                </h3>
+                                <p class="pl-author single-ellipsis">
+                                    ${song.singer} - ${song.album}
+                                </p>
+                            </div>
+                            <div class="pl-play flex-vcenter">
+                                <svg class="icon icon-play" aria-hidden="true">
+                                    <use xlink:href="#icon-play"></use>
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            `;
-            docFragment.appendChild(elLi);
+                    </a>
+                `;
+                docFragment.appendChild(elLi);
+            }
+            
         }
         plSongs.appendChild(docFragment);
     }
