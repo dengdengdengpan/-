@@ -185,17 +185,6 @@ body {
     display: flex;
     position: relative;
 }
-.pl-list .pl-link .pl-song::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transform: scale(0.5);
-    transform-origin: left bottom;
-}
 .pl-list .pl-song .pl-sintro {
     padding: 5px 0;
     flex-grow: 1;

@@ -13,7 +13,7 @@ querySongs.find().then(function(songs) {
                 elLi.innerHTML = `
                     <a href="./song.html?id=${songId}" class="pl-link">
                         <div class="pl-rank flex-vcenter">${song.plRank}</div>
-                        <div class="pl-song">
+                        <div class="pl-song border-bottom">
                             <div class="pl-sintro">
                                 <h3 class="pl-title single-ellipsis">
                                         ${song.name}
@@ -36,7 +36,7 @@ querySongs.find().then(function(songs) {
                 elLi.innerHTML = `
                     <a href="./song.html?id=${songId}" class="pl-link">
                         <div class="pl-rank flex-vcenter">${song.plRank}</div>
-                        <div class="pl-song">
+                        <div class="pl-song border-bottom">
                             <div class="pl-sintro">
                                 <h3 class="pl-title single-ellipsis">
                                         ${song.name}

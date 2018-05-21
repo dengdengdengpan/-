@@ -36,6 +36,7 @@ function appendNewMusic(songs) {
         let song = songs[i].attributes;
         let songId = songs[i].id;
         let elLi = document.createElement('li');
+        elLi.setAttribute('class','border-bottom');
         if (song.isNewMusic) {
             if (song.intro) {
                 elLi.innerHTML = `
@@ -99,7 +100,7 @@ function appendHotMusic(songs) {
                 elLi.innerHTML = `
                     <a href="./song.html?id=${songId}" class="hm-link">
                         <div class="hm-rank">${song.hotRank}</div>
-                        <div class="hm-song">
+                        <div class="hm-song border-bottom">
                             <div class="hm-sintro">
                                 <h3 class="hm-title single-ellipsis">
                                     ${song.name}
@@ -125,7 +126,7 @@ function appendHotMusic(songs) {
                 elLi.innerHTML = `
                     <a href="./song.html?id=${songId}" class="hm-link">
                         <div class="hm-rank">${song.hotRank}</div>
-                        <div class="hm-song">
+                        <div class="hm-song border-bottom">
                             <div class="hm-sintro">
                                 <h3 class="hm-title single-ellipsis">
                                     ${song.name}
@@ -150,4 +151,63 @@ function appendHotMusic(songs) {
         }
         elHmList.appendChild(docFragment);
     }    
+}
+
+// search
+let search = document.querySelector('.page-search .search');
+let deleteBtn = document.querySelector('.page-search .icon-delete');
+let hotSearch = document.querySelector('.page-search .hot-search');
+let searchResult = document.querySelector('.page-search .search-result');
+let srTarget = searchResult.querySelector('.sr-target');
+let srList = searchResult.querySelector('.sr-list');
+let noResult =searchResult.querySelector('.no-result');
+
+search.addEventListener('input',function(event) {
+
+    let value = event.currentTarget.value.trim();
+
+    // 对input是否有值展示不同的UI界面
+    if (value) {
+        deleteBtn.classList.add('active');
+        hotSearch.classList.add('active');
+        searchResult.classList.add('active');
+        srTarget.textContent = `“${value}”`;
+    } else {
+        deleteBtn.classList.remove('active');
+        searchResult.classList.remove('active');
+        hotSearch.classList.remove('active');
+    }
+
+    // 查询SongList
+    let querySearch = new AV.Query('SongList');
+    querySearch.contains('name', value);
+    querySearch.find().then(function(songs) {
+        console.log(songs)
+        // srList.innerHTML = '';
+        if (songs.length === 0) {
+            noResult.classList.add('active');
+        } else {
+            appendSearchItem(songs);
+        }
+    });
+});
+deleteBtn.addEventListener('click',function() {
+
+});
+
+function appendSearchItem(songs) {
+    let docFragment = document.createDocumentFragment();
+    for (let i = 0; i < songs.length; i++) {
+        let song = songs[i].attributes;
+        let elLi = document.createElement('li');
+        elLi.setAttribute('class','sr-item');
+        elLi.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" class="sr-icon">
+                <path fill-rule="evenodd" fill="#c9c9ca" d="M25.181,23.535l-1.414,1.414l-7.315-7.314   C14.709,19.107,12.46,20,10,20C4.477,20,0,15.523,0,10C0,4.477,4.477,0,10,0c5.523,0,10,4.477,10,10c0,2.342-0.811,4.49-2.16,6.195   L25.181,23.535z M10,2c-4.418,0-8,3.582-8,8s3.582,8,8,8c4.418,0,8-3.582,8-8S14.418,2,10,2z"/>
+            </svg>
+            <p class="sr-text border-bottom">${song.name}</p>
+        `;
+        docFragment.appendChild(elLi);
+    }
+    srList.appendChild(docFragment);
 }

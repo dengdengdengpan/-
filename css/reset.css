@@ -67,3 +67,13 @@ a {
     display: flex;
     align-items: center;
 }
+.border-bottom::after {
+    content: '';
+    width: 200%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    transform: scale(0.5);
+    transform-origin: left bottom;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

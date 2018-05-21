@@ -208,53 +208,70 @@
                     </a>
                 </li>
                 <li class="page-search">
-                    <div class="search-wrap">
-                        <div class="search-box">
-                            <form action="#" method="get">
-                                <div class="icon-search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
-                                        <path fill-rule="evenodd" fill="#c9c9ca" d="M25.181,23.535l-1.414,1.414l-7.315-7.314   C14.709,19.107,12.46,20,10,20C4.477,20,0,15.523,0,10C0,4.477,4.477,0,10,0c5.523,0,10,4.477,10,10c0,2.342-0.811,4.49-2.16,6.195   L25.181,23.535z M10,2c-4.418,0-8,3.582-8,8s3.582,8,8,8c4.418,0,8-3.582,8-8S14.418,2,10,2z"/>
-                                    </svg>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="search-present">
-                            <div class="hot-search">
-                                <h3>热门搜索</h3>
-                                <ul class="hs-list">
-                                    <li>
-                                        <a href="#">没有理由</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">我们</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">渺小却伟大</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">田馥甄</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">谢春花</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">炎亚纶</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">偶像练习生</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">慢慢喜欢你</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">林宥嘉</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">小幸运</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="search-bar border-bottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" class="icon-search">
+                            <path fill-rule="evenodd" fill="#c9c9ca" d="M25.181,23.535l-1.414,1.414l-7.315-7.314   C14.709,19.107,12.46,20,10,20C4.477,20,0,15.523,0,10C0,4.477,4.477,0,10,0c5.523,0,10,4.477,10,10c0,2.342-0.811,4.49-2.16,6.195   L25.181,23.535z M10,2c-4.418,0-8,3.582-8,8s3.582,8,8,8c4.418,0,8-3.582,8-8S14.418,2,10,2z"/>
+                        </svg>
+                        <input type="text" placeholder="搜索歌曲、歌手、专辑" class="search">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" class="icon-delete">
+                            <g fill-rule="evenodd">
+                                <path fill="#bcbdbd" d="M14,0c7.732,0,14,6.268,14,14c0,7.732-6.268,14-14,14  S0,21.732,0,14C0,6.268,6.268,0,14,0z"/>
+                                <g fill="none" stroke="#ebeceb" stroke-width="2.5" stroke-miterlimit="10">
+                                    <path d="m19 9l-10 10"/>
+                                    <path d="m9 9l10 10"/>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="search-result">
+                        <h3 class="sr-title border-bottom">
+                            <span>搜索</span>
+                            <span class="sr-target"></span>
+                        </h3>
+                        <ul class="sr-list">
+                            <li class="no-result">没有结果</li>
+                            <!-- <li class="sr-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" class="sr-icon">
+                                    <path fill-rule="evenodd" fill="#c9c9ca" d="M25.181,23.535l-1.414,1.414l-7.315-7.314   C14.709,19.107,12.46,20,10,20C4.477,20,0,15.523,0,10C0,4.477,4.477,0,10,0c5.523,0,10,4.477,10,10c0,2.342-0.811,4.49-2.16,6.195   L25.181,23.535z M10,2c-4.418,0-8,3.582-8,8s3.582,8,8,8c4.418,0,8-3.582,8-8S14.418,2,10,2z"/>
+                                </svg>
+                                <p class="sr-text border-bottom">熙熙攘攘</p>
+                            </li> -->
+                        </ul>
+                    </div>
+                    <div class="hot-search">
+                        <h3>热门搜索</h3>
+                        <ul class="hs-list">
+                            <li>
+                                <a href="#" class="hs-link">没有理由</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">我们</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">渺小却伟大</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">田馥甄</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">谢春花</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">炎亚纶</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">偶像练习生</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">慢慢喜欢你</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">林宥嘉</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hs-link">小幸运</a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
             </ul>
