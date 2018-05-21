@@ -161,11 +161,49 @@ let searchResult = document.querySelector('.page-search .search-result');
 let srTarget = searchResult.querySelector('.sr-target');
 let srList = searchResult.querySelector('.sr-list');
 let noResult =searchResult.querySelector('.no-result');
+let searchSong = document.querySelector('.search-song');
+let timer = null;
+
+search.addEventListener('focus',function() {
+    searchSong.classList.remove('active');
+    let value = search.value;
+    switchVal(value);
+    if (value) {
+        querySearch(value).then(generateSearchResult);
+    }
+});
 
 search.addEventListener('input',function(event) {
+    let inputVal = event.currentTarget.value;
+    // 函数节流
+    if (timer) {
+        clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+        timer = null;
+        let value = inputVal.trim();
+        switchVal(value);
 
-    let value = event.currentTarget.value.trim();
+        // value 如果为空字符串则退出
+        if (value === '') {
+            return;
+        }
 
+        querySearch(value).then(generateSearchResult);
+    },500);
+});
+
+deleteBtn.addEventListener('click',function() {
+    search.value = '';
+    deleteBtn.classList.remove('active');
+    searchResult.classList.remove('active');
+    searchSong.classList.remove('active');
+    hotSearch.classList.remove('active');
+});
+
+
+
+function switchVal(value) {
     // 对input是否有值展示不同的UI界面
     if (value) {
         deleteBtn.classList.add('active');
@@ -177,23 +215,29 @@ search.addEventListener('input',function(event) {
         searchResult.classList.remove('active');
         hotSearch.classList.remove('active');
     }
+}
 
-    // 查询SongList
-    let querySearch = new AV.Query('SongList');
-    querySearch.contains('name', value);
-    querySearch.find().then(function(songs) {
-        console.log(songs)
-        // srList.innerHTML = '';
-        if (songs.length === 0) {
-            noResult.classList.add('active');
-        } else {
-            appendSearchItem(songs);
-        }
-    });
-});
-deleteBtn.addEventListener('click',function() {
+function querySearch(value) {
+    // 组合查询SongList
+    let queryName = new AV.Query('SongList');
+    queryName.contains('name', value);
+    let querySinger = new AV.Query('SongList');
+    querySinger.contains('singer',value);
+    let queryAlbum = new AV.Query('SongList');
+    queryAlbum.contains('album',value);
+    let querySearch = AV.Query.or(queryName, querySinger,queryAlbum);
+    return querySearch.find();
+}
 
-});
+function generateSearchResult(songs) {
+    srList.innerHTML = '';
+    if (songs.length === 0) {
+        noResult.classList.add('active');
+    } else {
+        noResult.classList.remove('active');
+        appendSearchItem(songs);
+    }
+}
 
 function appendSearchItem(songs) {
     let docFragment = document.createDocumentFragment();
@@ -207,7 +251,91 @@ function appendSearchItem(songs) {
             </svg>
             <p class="sr-text border-bottom">${song.name}</p>
         `;
+        elLi.addEventListener('click',function() {
+            searchResult.classList.remove('active');
+            searchSong.innerHTML = '';
+            searchSong.classList.add('active');
+            let value = `${song.name}`;
+            querySearch(value).then(appendSearchSong);
+        });
         docFragment.appendChild(elLi);
     }
     srList.appendChild(docFragment);
 }
+
+function appendSearchSong(songs) {
+    let docFragment = document.createDocumentFragment();
+    for (let i = 0; i < songs.length; i++) {
+        let song = songs[i].attributes;
+        let songId = songs[i].id;
+        let elLi = document.createElement('li');
+        elLi.setAttribute('class','border-bottom');
+        if (song.isNewMusic) {
+            if (song.intro) {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="nm-link">
+                        <div class="song-intro">
+                            <h3 class="song-title single-ellipsis">
+                                ${song.name}
+                                <span>${song.intro}</span>
+                            </h3>
+                            <p class="song-author single-ellipsis">
+                                <svg class="icon icon-sq" aria-hidden="true">
+                                    <use xlink:href="#icon-sq"></use>
+                                </svg>
+                                ${song.singer} - ${song.album}
+                            </p>
+                        </div>
+                        <div class="song-play">
+                            <svg class="icon icon-play" aria-hidden="true">
+                                <use xlink:href="#icon-play"></use>
+                            </svg>
+                        </div>
+                    </a> 
+                `;
+                docFragment.appendChild(elLi);
+            } else {
+                elLi.innerHTML = `
+                    <a href="./song.html?id=${songId}" class="nm-link">
+                        <div class="song-intro">
+                            <h3 class="song-title single-ellipsis">
+                                ${song.name}
+                            </h3>
+                            <p class="song-author single-ellipsis">
+                                <svg class="icon icon-sq" aria-hidden="true">
+                                    <use xlink:href="#icon-sq"></use>
+                                </svg>
+                                ${song.singer} - ${song.album}
+                            </p>
+                        </div>
+                        <div class="song-play">
+                            <svg class="icon icon-play" aria-hidden="true">
+                                <use xlink:href="#icon-play"></use>
+                            </svg>
+                        </div>
+                    </a> 
+                `;
+                docFragment.appendChild(elLi);
+            }
+            searchSong.appendChild(docFragment);
+        }
+    }    
+}
+
+let srTitle = document.querySelector('.sr-title');
+srTitle.addEventListener('click',function() {
+    searchResult.classList.remove('active');
+    searchSong.innerHTML = '';
+    searchSong.classList.add('active');
+    
+    let value = search.value;
+    let queryName = new AV.Query('SongList');
+    let querySinger = new AV.Query('SongList');
+    let queryAlbum = new AV.Query('SongList');
+    let xxx = new RegExp(value,'i');
+    queryName.matches('name', xxx);
+    querySinger.matches('name', xxx);
+    queryAlbum.matches('name', xxx);
+    let querySrTitle = AV.Query.or(queryName, querySinger,queryAlbum);
+    querySrTitle.find().then(appendSearchSong);
+});
