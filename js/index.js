@@ -40,20 +40,20 @@ function appendNewMusic(songs) {
         if (song.isNewMusic) {
             if (song.intro) {
                 elLi.innerHTML = `
-                    <a href="./song.html?id=${songId}" class="nm-link">
-                        <div class="nm-intro">
-                            <h3 class="nm-title single-ellipsis">
+                    <a href="./song.html?id=${songId}" class="song-link">
+                        <div class="song-intro">
+                            <h3 class="song-title single-ellipsis">
                                 ${song.name}
                                 <span>${song.intro}</span>
                             </h3>
-                            <p class="nm-author single-ellipsis">
+                            <p class="song-author single-ellipsis">
                                 <svg class="icon icon-sq" aria-hidden="true">
                                     <use xlink:href="#icon-sq"></use>
                                 </svg>
                                 ${song.singer} - ${song.album}
                             </p>
                         </div>
-                        <div class="nm-play">
+                        <div class="song-play">
                             <svg class="icon icon-play" aria-hidden="true">
                                 <use xlink:href="#icon-play"></use>
                             </svg>
@@ -63,19 +63,19 @@ function appendNewMusic(songs) {
                 docFragment.appendChild(elLi);
             } else {
                 elLi.innerHTML = `
-                    <a href="./song.html?id=${songId}" class="nm-link">
-                        <div class="nm-intro">
-                            <h3 class="nm-title single-ellipsis">
+                    <a href="./song.html?id=${songId}" class="song-link">
+                        <div class="song-intro">
+                            <h3 class="song-title single-ellipsis">
                                 ${song.name}
                             </h3>
-                            <p class="nm-author single-ellipsis">
+                            <p class="song-author single-ellipsis">
                                 <svg class="icon icon-sq" aria-hidden="true">
                                     <use xlink:href="#icon-sq"></use>
                                 </svg>
                                 ${song.singer} - ${song.album}
                             </p>
                         </div>
-                        <div class="nm-play">
+                        <div class="song-play">
                             <svg class="icon icon-play" aria-hidden="true">
                                 <use xlink:href="#icon-play"></use>
                             </svg>
@@ -273,7 +273,7 @@ function appendSearchSong(songs) {
         if (song.isNewMusic) {
             if (song.intro) {
                 elLi.innerHTML = `
-                    <a href="./song.html?id=${songId}" class="nm-link">
+                    <a href="./song.html?id=${songId}" class="song-link">
                         <div class="song-intro">
                             <h3 class="song-title single-ellipsis">
                                 ${song.name}
@@ -296,7 +296,7 @@ function appendSearchSong(songs) {
                 docFragment.appendChild(elLi);
             } else {
                 elLi.innerHTML = `
-                    <a href="./song.html?id=${songId}" class="nm-link">
+                    <a href="./song.html?id=${songId}" class="song-link">
                         <div class="song-intro">
                             <h3 class="song-title single-ellipsis">
                                 ${song.name}
@@ -338,4 +338,43 @@ srTitle.addEventListener('click',function() {
     queryAlbum.matches('name', xxx);
     let querySrTitle = AV.Query.or(queryName, querySinger,queryAlbum);
     querySrTitle.find().then(appendSearchSong);
+
+    setSearchRecord(value);
 });
+
+
+function setSearchRecord(value) {
+    let recordNum = 10;
+    if (value) {
+        console.log('value 可以使用')
+
+        if (localStorage.getItem('record') === null) {
+            localStorage.setItem('record',value);
+        } else {
+            let allRecord = localStorage.getItem('record') + ' ' + value;
+            localStorage.setItem('record',allRecord);
+        }
+
+        // if (!judgeIfExisted(value)) {
+        //     console.log('该条记录第一次输入')
+        //     if (recordArr.length < recordNum) {
+        //         localStorage.setItem
+        //     }
+        // } else {
+        //     console.log('该条记录已经存在')
+        // }
+    } else {
+        console.log('请输入搜索内容');
+    }
+}
+
+// 判断搜索记录是否已经存在(if--->有是否的意思)
+function judgeIfExisted (value) {
+    for (let key in localStorage) {
+        if (value === localStorage.getItem(key)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
