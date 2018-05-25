@@ -340,6 +340,7 @@ srTitle.addEventListener('click',function() {
     querySrTitle.find().then(appendSearchSong);
 
     setSearchRecord(value);
+    //setHistoryItems(value)
 });
 
 
@@ -347,34 +348,40 @@ function setSearchRecord(value) {
     let recordNum = 10;
     if (value) {
         console.log('value 可以使用')
-
-        if (localStorage.getItem('record') === null) {
-            localStorage.setItem('record',value);
-        } else {
-            let allRecord = localStorage.getItem('record') + ' ' + value;
-            localStorage.setItem('record',allRecord);
-        }
-
-        // if (!judgeIfExisted(value)) {
-        //     console.log('该条记录第一次输入')
-        //     if (recordArr.length < recordNum) {
-        //         localStorage.setItem
-        //     }
-        // } else {
-        //     console.log('该条记录已经存在')
-        // }
+        storageRecord(value)
     } else {
         console.log('请输入搜索内容');
     }
 }
 
 // 判断搜索记录是否已经存在(if--->有是否的意思)
-function judgeIfExisted (value) {
-    for (let key in localStorage) {
-        if (value === localStorage.getItem(key)) {
+function judgeIfExisted (value,recordArr) {
+    recordArr.forEach(function(currentVal) {
+        if (currentVal === value) {
             return true;
         } else {
             return false;
         }
+    });
+}
+
+function storageRecord(value) {
+    if (localStorage.getItem('record') === null) {
+        localStorage.setItem('record',value);
+    } else {
+        let recordArr = localStorage.getItem('record').split('|');
+        if (!judgeIfExisted(value,recordArr)) {
+            localStorage.record += '|' + value;
+        }
     }
 }
+
+function setHistoryItems(keyword) {  
+    let { historyItems } = localStorage;  
+    if (historyItems === undefined) {  
+      localStorage.historyItems = keyword;  
+    } else {  
+      const isNotExists = historyItems.split('|').filter((e) => e == keyword).length == 0;  
+      if (isNotExists) localStorage.historyItems += '|' + keyword;  
+    }  
+}  
