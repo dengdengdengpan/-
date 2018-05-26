@@ -201,6 +201,7 @@ deleteBtn.addEventListener('click',function() {
     searchResult.classList.remove('active');
     searchSong.classList.remove('active');
     hotSearch.classList.remove('active');
+    searchHistory.classList.remove('active');
 });
 
 
@@ -210,12 +211,14 @@ function switchVal(value) {
     if (value) {
         deleteBtn.classList.add('active');
         hotSearch.classList.add('active');
+        searchHistory.classList.add('active');
         searchResult.classList.add('active');
         srTarget.textContent = `“${value}”`;
     } else {
         deleteBtn.classList.remove('active');
         searchResult.classList.remove('active');
         hotSearch.classList.remove('active');
+        searchHistory.classList.remove('active');
     }
 }
 
@@ -325,8 +328,6 @@ function appendSearchSong(songs) {
 
 let srTitle = document.querySelector('.sr-title');
 srTitle.addEventListener('click',function() {
-    console.log(111)
-    console.log(this)
     searchResult.classList.remove('active');
     searchSong.innerHTML = '';
     searchSong.classList.add('active');
@@ -368,7 +369,6 @@ function initSearchRecord() {
             recordItem.push(localStorage.getItem(recordTime[i]));
         }
     }
-    console.log(recordItem)
     shList.innerHTML = '';
     generateRecordTemplet();
 }
@@ -403,6 +403,16 @@ function generateRecordTemplet() {
                 </div>
             </div>
         `;
+        let value = `${recordItem[i]}`;
+        elLi.addEventListener('click',function() {
+            console.log(222)
+            search.value = value;
+            hotSearch.classList.add('active');
+            searchHistory.classList.add('active');
+            searchSong.innerHTML = '';
+            searchSong.classList.add('active');
+            querySearch(value).then(appendSearchSong);
+        });
         docFragment.appendChild(elLi);
     }
     shList.appendChild(docFragment);
@@ -437,73 +447,15 @@ function setSearchRecord(domElement,value) {
 
 initSearchRecord();
 
-
-
-// let shList = document.querySelector('.sh-list');
-
-// function setSearchRecord(value) {
-//     let recordNum = 10;
-//     if (value) {
-//         console.log('value 可以使用')
-//         storageRecord(value);
-        
-//     } else {
-//         console.log('请输入搜索内容');
-//     }
-// }
-
-// // 判断搜索记录是否已经存在(if--->有是否的意思)
-// function judgeIfExisted (value,recordArr) {
-//     recordArr.forEach(function(currentVal) {
-//         if (currentVal === value) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     });
-// }
-// // 在localStorage中储存搜索记录
-// function storageRecord(value) {
-//     if (localStorage.getItem('record') === null) {
-//         localStorage.setItem('record',value);
-//     } else {
-//         let recordArr = localStorage.getItem('record').split('|');
-//         if (!judgeIfExisted(value,recordArr)) {
-//             localStorage.record += '|' + value;
-//         }
-//     }
-// }
-// // 设置.sh-item模板
-// function setRecordTtemplet() {
-//     let elLi = document.createElement('li');
-//     elLi.setAttribute('class','sh-item');
-//     elLi.innerHTML = `
-//         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="sh-icon">
-//         <path fill-rule="evenodd" fill="#c9caca" d="m15 30c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15m0-28c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13m7 16h-8c-.552 0-1-.447-1-1v-10c0-.553.448-1 1-1s1 .447 1 1v9h7c.553 0 1 .447 1 1s-.447 1-1 1"/>
-//         </svg>
-//         <div class="sh-rpart border-bottom">
-//             <p class="sh-text">小嫦娥</p>
-//             <div class="close-wrap">
-//                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="close-icon">
-//                     <path fill-rule="evenodd" fill="#999899" d="m13.379 12l10.338 10.337c.381.381.381.998 0 1.379s-.998.381-1.378 0l-10.338-10.338-10.338 10.338c-.38.381-.997.381-1.378 0s-.381-.998 0-1.379l10.338-10.337-10.338-10.338c-.381-.38-.381-.997 0-1.378s.998-.381 1.378 0l10.338 10.338 10.338-10.338c.38-.381.997-.381 1.378 0s.381.998 0 1.378l-10.338 10.338"/>
-//                 </svg>
-//             </div>
-//         </div>
-//     `;
-//     console.log(elLi)
-//     return elLi;
-// }
-// // 向页面中添加搜索历史
-// function appendSearchRecord() {
-//     let childNum = shList.children.length;
-//     if (childNum === 0) {
-//         shList.appendChild(setRecordTtemplet());
-//     } else {
-//         if (childNum < 10) {
-
-//         } 
-//     }
-// }
-
-
-
+let closeWrap = document.getElementsByClassName('close-wrap');
+let shItems = shList.getElementsByClassName('sh-item');
+console.log(shItems);
+for (let i = 0; i < closeWrap.length; i++) {
+    closeWrap[i].addEventListener('click',function(event) {
+        event.stopPropagation();
+        let currentShItem = this.parentElement.parentElement;
+        let currentIndex = [].indexOf.call(shItems,currentShItem);
+        localStorage.removeItem(recordTime[currentIndex]);
+        currentShItem.remove();
+    });
+}

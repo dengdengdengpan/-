@@ -597,6 +597,8 @@
 }
 .page-search .search-history .sh-rpart .close-wrap {
     padding: 14px 15px 14px 5px;
+    position: relative;
+    z-index: 5;
 }
 .page-search .search-history .sh-rpart .close-icon {
     width: 12px;
