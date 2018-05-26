@@ -113,7 +113,7 @@ function appendHotMusic(songs) {
                                     ${song.singer} - ${song.album}
                                 </p>
                             </div>
-                            <div class="hm-play">
+                            <div class="hm-play flex-center">
                                 <svg class="icon icon-play" aria-hidden="true">
                                     <use xlink:href="#icon-play"></use>
                                 </svg>
@@ -138,7 +138,7 @@ function appendHotMusic(songs) {
                                     ${song.singer} - ${song.album}
                                 </p>
                             </div>
-                            <div class="hm-play">
+                            <div class="hm-play flex-center">
                                 <svg class="icon icon-play" aria-hidden="true">
                                     <use xlink:href="#icon-play"></use>
                                 </svg>
@@ -155,7 +155,7 @@ function appendHotMusic(songs) {
 
 // search
 let search = document.querySelector('.page-search .search');
-let deleteBtn = document.querySelector('.page-search .icon-delete');
+let deleteBtn = document.querySelector('.page-search .delete-icon');
 let hotSearch = document.querySelector('.page-search .hot-search');
 let searchResult = document.querySelector('.page-search .search-result');
 let srTarget = searchResult.querySelector('.sr-target');
@@ -163,6 +163,8 @@ let srList = searchResult.querySelector('.sr-list');
 let noResult =searchResult.querySelector('.no-result');
 let searchSong = document.querySelector('.search-song');
 let timer = null;
+let searchHistory = document.querySelector('.search-history');
+let shList = document.querySelector('.page-search .sh-list');
 
 search.addEventListener('focus',function() {
     searchSong.classList.remove('active');
@@ -257,6 +259,7 @@ function appendSearchItem(songs) {
             searchSong.classList.add('active');
             let value = `${song.name}`;
             querySearch(value).then(appendSearchSong);
+            setSearchRecord(this,value);
         });
         docFragment.appendChild(elLi);
     }
@@ -270,64 +273,63 @@ function appendSearchSong(songs) {
         let songId = songs[i].id;
         let elLi = document.createElement('li');
         elLi.setAttribute('class','border-bottom');
-        if (song.isNewMusic) {
-            if (song.intro) {
-                elLi.innerHTML = `
-                    <a href="./song.html?id=${songId}" class="song-link">
-                        <div class="song-intro">
-                            <h3 class="song-title single-ellipsis">
-                                ${song.name}
-                                <span>${song.intro}</span>
-                            </h3>
-                            <p class="song-author single-ellipsis">
-                                <svg class="icon icon-sq" aria-hidden="true">
-                                    <use xlink:href="#icon-sq"></use>
-                                </svg>
-                                ${song.singer} - ${song.album}
-                            </p>
-                        </div>
-                        <div class="song-play">
-                            <svg class="icon icon-play" aria-hidden="true">
-                                <use xlink:href="#icon-play"></use>
+        if (song.intro) {
+            elLi.innerHTML = `
+                <a href="./song.html?id=${songId}" class="song-link">
+                    <div class="song-intro">
+                        <h3 class="song-title single-ellipsis">
+                            ${song.name}
+                            <span>${song.intro}</span>
+                        </h3>
+                        <p class="song-author single-ellipsis">
+                            <svg class="icon icon-sq" aria-hidden="true">
+                                <use xlink:href="#icon-sq"></use>
                             </svg>
-                        </div>
-                    </a> 
-                `;
-                docFragment.appendChild(elLi);
-            } else {
-                elLi.innerHTML = `
-                    <a href="./song.html?id=${songId}" class="song-link">
-                        <div class="song-intro">
-                            <h3 class="song-title single-ellipsis">
-                                ${song.name}
-                            </h3>
-                            <p class="song-author single-ellipsis">
-                                <svg class="icon icon-sq" aria-hidden="true">
-                                    <use xlink:href="#icon-sq"></use>
-                                </svg>
-                                ${song.singer} - ${song.album}
-                            </p>
-                        </div>
-                        <div class="song-play">
-                            <svg class="icon icon-play" aria-hidden="true">
-                                <use xlink:href="#icon-play"></use>
+                            ${song.singer} - ${song.album}
+                        </p>
+                    </div>
+                    <div class="song-play">
+                        <svg class="icon icon-play" aria-hidden="true">
+                            <use xlink:href="#icon-play"></use>
+                        </svg>
+                    </div>
+                </a> 
+            `;
+            docFragment.appendChild(elLi);
+        } else {
+            elLi.innerHTML = `
+                <a href="./song.html?id=${songId}" class="song-link">
+                    <div class="song-intro">
+                        <h3 class="song-title single-ellipsis">
+                            ${song.name}
+                        </h3>
+                        <p class="song-author single-ellipsis">
+                            <svg class="icon icon-sq" aria-hidden="true">
+                                <use xlink:href="#icon-sq"></use>
                             </svg>
-                        </div>
-                    </a> 
-                `;
-                docFragment.appendChild(elLi);
-            }
-            searchSong.appendChild(docFragment);
+                            ${song.singer} - ${song.album}
+                        </p>
+                    </div>
+                    <div class="song-play">
+                        <svg class="icon icon-play" aria-hidden="true">
+                            <use xlink:href="#icon-play"></use>
+                        </svg>
+                    </div>
+                </a> 
+            `;
+            docFragment.appendChild(elLi);
         }
-    }    
+        searchSong.appendChild(docFragment);
+    } 
 }
 
 let srTitle = document.querySelector('.sr-title');
 srTitle.addEventListener('click',function() {
+    console.log(111)
+    console.log(this)
     searchResult.classList.remove('active');
     searchSong.innerHTML = '';
     searchSong.classList.add('active');
-    
     let value = search.value;
     let queryName = new AV.Query('SongList');
     let querySinger = new AV.Query('SongList');
@@ -338,50 +340,170 @@ srTitle.addEventListener('click',function() {
     queryAlbum.matches('name', xxx);
     let querySrTitle = AV.Query.or(queryName, querySinger,queryAlbum);
     querySrTitle.find().then(appendSearchSong);
-
-    setSearchRecord(value);
-    //setHistoryItems(value)
+    setSearchRecord(this,value);
 });
 
 
-function setSearchRecord(value) {
-    let recordNum = 10;
-    if (value) {
-        console.log('value 可以使用')
-        storageRecord(value)
+// search record
+var recordTime;
+var recordItem;
+
+// 初始化localStorage的搜索记录
+function initSearchRecord() {
+    // 初始化记录时间、记录项为空数组
+    recordTime = [];
+    recordItem = [];
+    // 遍历localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        // localStorage中存储的搜索记录是以时间为键名，筛选掉localStorage中不是数字的键名
+        if (!isNaN(localStorage.key(i))) {
+            recordTime.push(localStorage.key(i));
+        }
+    }
+    // 当recordTime不是空数组，遍历recordTime向recordItem添加记录
+    if (recordTime.length > 0) {
+        // 把记录时间按照由大到小的顺序排列，即最先储存的记录在最后
+        recordTime.sort(compareFun);
+        for (let i = 0; i < recordTime.length; i++) {
+            recordItem.push(localStorage.getItem(recordTime[i]));
+        }
+    }
+    console.log(recordItem)
+    shList.innerHTML = '';
+    generateRecordTemplet();
+}
+
+// 比较函数，从大到小
+function compareFun(a,b) {
+    if (a < b) {
+        return 1;
+    } else if (a > b) {
+        return -1;
     } else {
-        console.log('请输入搜索内容');
+        return 0;
     }
 }
 
-// 判断搜索记录是否已经存在(if--->有是否的意思)
-function judgeIfExisted (value,recordArr) {
-    recordArr.forEach(function(currentVal) {
-        if (currentVal === value) {
-            return true;
+// 生成搜索记录模板
+function generateRecordTemplet() {
+    let docFragment = document.createDocumentFragment();
+    for (let i = 0; i < recordItem.length; i++) {
+        let elLi = document.createElement('li');
+        elLi.setAttribute('class','sh-item');
+        elLi.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="sh-icon">
+                <path fill-rule="evenodd" fill="#c9caca" d="m15 30c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15m0-28c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13m7 16h-8c-.552 0-1-.447-1-1v-10c0-.553.448-1 1-1s1 .447 1 1v9h7c.553 0 1 .447 1 1s-.447 1-1 1"/>
+            </svg>
+            <div class="sh-rpart border-bottom">
+                <p class="sh-text">${recordItem[i]}</p>
+                <div class="close-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="close-icon">
+                        <path fill-rule="evenodd" fill="#999899" d="m13.379 12l10.338 10.337c.381.381.381.998 0 1.379s-.998.381-1.378 0l-10.338-10.338-10.338 10.338c-.38.381-.997.381-1.378 0s-.381-.998 0-1.379l10.338-10.337-10.338-10.338c-.381-.38-.381-.997 0-1.378s.998-.381 1.378 0l10.338 10.338 10.338-10.338c.38-.381.997-.381 1.378 0s.381.998 0 1.378l-10.338 10.338"/>
+                    </svg>
+                </div>
+            </div>
+        `;
+        docFragment.appendChild(elLi);
+    }
+    shList.appendChild(docFragment);
+}
+
+// 当点击搜索结果中的.sr-title或.sr-item时储存记录
+function setSearchRecord(domElement,value) {
+    // 设置储存记录的时间
+    let time = (new Date()).getTime();
+    this.addEventListener('click',function() {
+        if (recordItem.indexOf(value) >= 0) {
+            // 搜索记录已经存在的情况，找到之前在localStorage中储存的该项，然后移除该项；然后设置当前这个新的时间点的记录到localStorage中
+            console.log('这个搜索记录已经存在')
+            for (let i = 0; i < localStorage.length; i++) {
+                if (value === localStorage.getItem(localStorage.key(i))) {
+                    localStorage.removeItem(localStorage.key(i));
+                }
+            }
+            localStorage.setItem(time,value);
         } else {
-            return false;
+            if (recordItem.length > 3) {
+                let lastRecordItem = recordTime[recordTime.length - 1];
+                localStorage.removeItem(lastRecordItem);
+                localStorage.setItem(time,value);
+            } else {
+                localStorage.setItem(time,value);
+            }
         }
+        initSearchRecord();
     });
 }
 
-function storageRecord(value) {
-    if (localStorage.getItem('record') === null) {
-        localStorage.setItem('record',value);
-    } else {
-        let recordArr = localStorage.getItem('record').split('|');
-        if (!judgeIfExisted(value,recordArr)) {
-            localStorage.record += '|' + value;
-        }
-    }
-}
+initSearchRecord();
 
-function setHistoryItems(keyword) {  
-    let { historyItems } = localStorage;  
-    if (historyItems === undefined) {  
-      localStorage.historyItems = keyword;  
-    } else {  
-      const isNotExists = historyItems.split('|').filter((e) => e == keyword).length == 0;  
-      if (isNotExists) localStorage.historyItems += '|' + keyword;  
-    }  
-}  
+
+
+// let shList = document.querySelector('.sh-list');
+
+// function setSearchRecord(value) {
+//     let recordNum = 10;
+//     if (value) {
+//         console.log('value 可以使用')
+//         storageRecord(value);
+        
+//     } else {
+//         console.log('请输入搜索内容');
+//     }
+// }
+
+// // 判断搜索记录是否已经存在(if--->有是否的意思)
+// function judgeIfExisted (value,recordArr) {
+//     recordArr.forEach(function(currentVal) {
+//         if (currentVal === value) {
+//             return true;
+//         } else {
+//             return false;
+//         }
+//     });
+// }
+// // 在localStorage中储存搜索记录
+// function storageRecord(value) {
+//     if (localStorage.getItem('record') === null) {
+//         localStorage.setItem('record',value);
+//     } else {
+//         let recordArr = localStorage.getItem('record').split('|');
+//         if (!judgeIfExisted(value,recordArr)) {
+//             localStorage.record += '|' + value;
+//         }
+//     }
+// }
+// // 设置.sh-item模板
+// function setRecordTtemplet() {
+//     let elLi = document.createElement('li');
+//     elLi.setAttribute('class','sh-item');
+//     elLi.innerHTML = `
+//         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="sh-icon">
+//         <path fill-rule="evenodd" fill="#c9caca" d="m15 30c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15m0-28c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13m7 16h-8c-.552 0-1-.447-1-1v-10c0-.553.448-1 1-1s1 .447 1 1v9h7c.553 0 1 .447 1 1s-.447 1-1 1"/>
+//         </svg>
+//         <div class="sh-rpart border-bottom">
+//             <p class="sh-text">小嫦娥</p>
+//             <div class="close-wrap">
+//                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="close-icon">
+//                     <path fill-rule="evenodd" fill="#999899" d="m13.379 12l10.338 10.337c.381.381.381.998 0 1.379s-.998.381-1.378 0l-10.338-10.338-10.338 10.338c-.38.381-.997.381-1.378 0s-.381-.998 0-1.379l10.338-10.337-10.338-10.338c-.381-.38-.381-.997 0-1.378s.998-.381 1.378 0l10.338 10.338 10.338-10.338c.38-.381.997-.381 1.378 0s.381.998 0 1.378l-10.338 10.338"/>
+//                 </svg>
+//             </div>
+//         </div>
+//     `;
+//     console.log(elLi)
+//     return elLi;
+// }
+// // 向页面中添加搜索历史
+// function appendSearchRecord() {
+//     let childNum = shList.children.length;
+//     if (childNum === 0) {
+//         shList.appendChild(setRecordTtemplet());
+//     } else {
+//         if (childNum < 10) {
+
+//         } 
+//     }
+// }
+
+
+

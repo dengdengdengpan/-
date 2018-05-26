@@ -419,9 +419,6 @@
 }
 .page-hot .hm-list .hm-play {
     padding: 0 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .page-hot .hm-list .hm-play svg.icon-play {
     width: 22px;
@@ -448,7 +445,7 @@
     padding: 15px 10px;
     position: relative;
 }
-.page-search .search-bar .icon-search {
+.page-search .search-bar .search-icon {
     width: 13px;
     height: 13px;
     position: absolute;
@@ -466,7 +463,7 @@
     font-size: 14px;
     color: #333;
 }
-.page-search .search-bar .icon-delete {
+.page-search .search-bar .delete-icon {
     width: 14px;
     height: 14px;
     position: absolute;
@@ -474,7 +471,7 @@
     right: 18px;
     display: none;
 }
-.page-search .search-bar .icon-delete.active {
+.page-search .search-bar .delete-icon.active {
     display: block;
 }
 
@@ -570,4 +567,38 @@
 }
 .page-search .search-song.active {
     display: block;
+}
+
+/* .page-search .search-history */
+.page-search .search-history.active {
+    display: none;
+}
+.page-search .search-history .sh-item {
+    display: flex;
+    align-items: center;
+}
+.page-search .search-history .sh-icon {
+    margin: 0 10px;
+    width: 15px;
+    height: 15px;
+}
+.page-search .search-history .sh-rpart {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.page-search .search-history .sh-rpart .sh-text {
+    padding: 13px 0;
+    font-size: 14px;
+    color: #333;
+    flex-grow: 1;
+}
+.page-search .search-history .sh-rpart .close-wrap {
+    padding: 14px 15px 14px 5px;
+}
+.page-search .search-history .sh-rpart .close-icon {
+    width: 12px;
+    height: 12px;
 }
