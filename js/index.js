@@ -281,7 +281,7 @@ function appendSearchSong(songs) {
                 <a href="./song.html?id=${songId}" class="song-link">
                     <div class="song-intro">
                         <h3 class="song-title single-ellipsis">
-                            ${song.name}
+                            <span class="ss-name">${song.name}</span>
                             <span>${song.intro}</span>
                         </h3>
                         <p class="song-author single-ellipsis">
@@ -304,7 +304,7 @@ function appendSearchSong(songs) {
                 <a href="./song.html?id=${songId}" class="song-link">
                     <div class="song-intro">
                         <h3 class="song-title single-ellipsis">
-                            ${song.name}
+                            <span class="ss-name">${song.name}</span>
                         </h3>
                         <p class="song-author single-ellipsis">
                             <svg class="icon icon-sq" aria-hidden="true">
@@ -323,7 +323,8 @@ function appendSearchSong(songs) {
             docFragment.appendChild(elLi);
         }
         searchSong.appendChild(docFragment);
-    } 
+
+    }   
 }
 
 let srTitle = document.querySelector('.sr-title');
@@ -364,7 +365,7 @@ function initSearchRecord() {
     // 当recordTime不是空数组，遍历recordTime向recordItem添加记录
     if (recordTime.length > 0) {
         // 把记录时间按照由大到小的顺序排列，即最先储存的记录在最后
-        recordTime.sort(compareFun);
+        recordTime.sort(compareFunc);
         for (let i = 0; i < recordTime.length; i++) {
             recordItem.push(localStorage.getItem(recordTime[i]));
         }
@@ -374,7 +375,7 @@ function initSearchRecord() {
 }
 
 // 比较函数，从大到小
-function compareFun(a,b) {
+function compareFunc(a,b) {
     if (a < b) {
         return 1;
     } else if (a > b) {
@@ -394,15 +395,21 @@ function generateRecordTemplet() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="sh-icon">
                 <path fill-rule="evenodd" fill="#c9caca" d="m15 30c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15m0-28c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13m7 16h-8c-.552 0-1-.447-1-1v-10c0-.553.448-1 1-1s1 .447 1 1v9h7c.553 0 1 .447 1 1s-.447 1-1 1"/>
             </svg>
-            <div class="sh-rpart border-bottom">
-                <p class="sh-text">${recordItem[i]}</p>
-                <div class="close-wrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="close-icon">
-                        <path fill-rule="evenodd" fill="#999899" d="m13.379 12l10.338 10.337c.381.381.381.998 0 1.379s-.998.381-1.378 0l-10.338-10.338-10.338 10.338c-.38.381-.997.381-1.378 0s-.381-.998 0-1.379l10.338-10.337-10.338-10.338c-.381-.38-.381-.997 0-1.378s.998-.381 1.378 0l10.338 10.338 10.338-10.338c.38-.381.997-.381 1.378 0s.381.998 0 1.378l-10.338 10.338"/>
-                    </svg>
-                </div>
-            </div>
         `;
+        let shRpartDiv = document.createElement('div');
+        shRpartDiv.setAttribute('class','sh-rpart border-bottom');
+        shRpartDiv.innerHTML = `
+            <p class="sh-text">${recordItem[i]}</p>
+        `;
+        let closeWrapDiv = document.createElement('div');
+        closeWrapDiv.setAttribute('class','close-wrap');
+        closeWrapDiv.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="close-icon">
+                <path fill-rule="evenodd" fill="#999899" d="m13.379 12l10.338 10.337c.381.381.381.998 0 1.379s-.998.381-1.378 0l-10.338-10.338-10.338 10.338c-.38.381-.997.381-1.378 0s-.381-.998 0-1.379l10.338-10.337-10.338-10.338c-.381-.38-.381-.997 0-1.378s.998-.381 1.378 0l10.338 10.338 10.338-10.338c.38-.381.997-.381 1.378 0s.381.998 0 1.378l-10.338 10.338"/>
+            </svg>
+        `;
+        shRpartDiv.appendChild(closeWrapDiv);
+        elLi.appendChild(shRpartDiv);
         let value = `${recordItem[i]}`;
         elLi.addEventListener('click',function() {
             search.value = value;
@@ -411,6 +418,16 @@ function generateRecordTemplet() {
             searchSong.innerHTML = '';
             searchSong.classList.add('active');
             querySearch(value).then(appendSearchSong);
+        });
+        let shItems = shList.getElementsByClassName('sh-item');
+        closeWrapDiv.addEventListener('click',function(event) {
+            event.stopPropagation();
+            let currentShItem = this.parentElement.parentElement;
+            let currentIndex = [].indexOf.call(shItems,currentShItem);
+            localStorage.removeItem(recordTime[currentIndex]);
+            recordTime.splice(currentIndex,1);
+            recordItem.splice(currentIndex,1);
+            currentShItem.remove();
         });
         docFragment.appendChild(elLi);
     }
@@ -421,7 +438,8 @@ function generateRecordTemplet() {
 function setSearchRecord(domElement,value) {
     // 设置储存记录的时间
     let time = (new Date()).getTime();
-    this.addEventListener('click',function() {
+    this.addEventListener('click',function(event) {
+        event.stopPropagation();
         if (recordItem.indexOf(value) >= 0) {
             // 搜索记录已经存在的情况，找到之前在localStorage中储存的该项，然后移除该项；然后设置当前这个新的时间点的记录到localStorage中
             for (let i = 0; i < localStorage.length; i++) {
@@ -431,7 +449,7 @@ function setSearchRecord(domElement,value) {
             }
             localStorage.setItem(time,value);
         } else {
-            if (recordItem.length > 3) {
+            if (recordItem.length > 10) {
                 let lastRecordItem = recordTime[recordTime.length - 1];
                 localStorage.removeItem(lastRecordItem);
                 localStorage.setItem(time,value);
@@ -443,16 +461,21 @@ function setSearchRecord(domElement,value) {
     });
 }
 
-initSearchRecord();
-
-let closeWrap = document.getElementsByClassName('close-wrap');
-let shItems = shList.getElementsByClassName('sh-item');
-for (let i = 0; i < closeWrap.length; i++) {
-    closeWrap[i].addEventListener('click',function(event) {
-        event.stopPropagation();
-        let currentShItem = this.parentElement.parentElement;
-        let currentIndex = [].indexOf.call(shItems,currentShItem);
-        localStorage.removeItem(recordTime[currentIndex]);
-        currentShItem.remove();
-    });
+function closeWrapClickEvent() {
+    let shItems = shList.getElementsByClassName('sh-item');
+    let closeWrap = document.getElementsByClassName('close-wrap');
+    for (let i = 0; i < closeWrap.length; i++) {
+        closeWrap[i].addEventListener('click',function(event) {
+            event.stopPropagation();
+            let currentShItem = this.parentElement.parentElement;
+            let currentIndex = [].indexOf.call(shItems,currentShItem);
+            localStorage.removeItem(recordTime[currentIndex]);
+            recordTime.splice(currentIndex,1);
+            recordItem.splice(currentIndex,1);
+            currentShItem.remove();
+        });
+    }
 }
+
+initSearchRecord();
+closeWrapClickEvent();

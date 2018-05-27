@@ -568,6 +568,9 @@
 .page-search .search-song.active {
     display: block;
 }
+.page-search .search-song .ss-name {
+    color: #507daf;
+}
 
 /* .page-search .search-history */
 .page-search .search-history.active {
