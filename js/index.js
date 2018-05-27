@@ -405,7 +405,6 @@ function generateRecordTemplet() {
         `;
         let value = `${recordItem[i]}`;
         elLi.addEventListener('click',function() {
-            console.log(222)
             search.value = value;
             hotSearch.classList.add('active');
             searchHistory.classList.add('active');
@@ -425,7 +424,6 @@ function setSearchRecord(domElement,value) {
     this.addEventListener('click',function() {
         if (recordItem.indexOf(value) >= 0) {
             // 搜索记录已经存在的情况，找到之前在localStorage中储存的该项，然后移除该项；然后设置当前这个新的时间点的记录到localStorage中
-            console.log('这个搜索记录已经存在')
             for (let i = 0; i < localStorage.length; i++) {
                 if (value === localStorage.getItem(localStorage.key(i))) {
                     localStorage.removeItem(localStorage.key(i));
@@ -449,7 +447,6 @@ initSearchRecord();
 
 let closeWrap = document.getElementsByClassName('close-wrap');
 let shItems = shList.getElementsByClassName('sh-item');
-console.log(shItems);
 for (let i = 0; i < closeWrap.length; i++) {
     closeWrap[i].addEventListener('click',function(event) {
         event.stopPropagation();
