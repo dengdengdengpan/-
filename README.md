@@ -25,10 +25,10 @@
 
 - 预览图
 
-  ![](http://p7e35vgip.bkt.clouddn.com/music.gif)
+  ![gif](http://p7e35vgip.bkt.clouddn.com/music.gif)
 
 - [在线预览地址](http://dengpanstudyqianduan.xyz/index.html#)
 
 - 扫描下方二维码效果更佳
 
-  ![](http://p7e35vgip.bkt.clouddn.com/td.png)
+  ![二维码](http://p7e35vgip.bkt.clouddn.com/td.png)
