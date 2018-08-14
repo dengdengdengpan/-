@@ -30,9 +30,11 @@
         </div>
         <script>
             let elA = document.querySelectorAll('a');
-            elA.addEventListener('click',function(event) {
-                event.preventDefault();
-            });
+            for (let i = 0; i < elA.length; i++) {
+                elA[i].addEventListener('click',function(event) {
+                    event.preventDefault();
+                });
+            }
         </script>
     </body>
 </html>
