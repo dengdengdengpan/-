@@ -25,7 +25,7 @@
 
 - 预览图
 
-  ![gif](http://p7e35vgip.bkt.clouddn.com/music.gif)
+  ![gif](https://github.com/dengdengdengpan/NetEase-Cloud-Music/blob/master/imgs/music.gif)
 
 - [在线预览地址](http://dengpanstudyqianduan.xyz/index.html#)
 
